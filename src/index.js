@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 // containers
 import DevTools from './containers/DevTools'
 
-
+// setup redux
 import configureStore from './store/configureStore'
 const store = configureStore([
   { title: 'Backlog'

@@ -9,7 +9,7 @@ import TestUtils from 'react-addons-test-utils'
 
 test('card component', (t) => {
   const shallowRenderer = TestUtils.createRenderer()
-  const cardFixture = {text: 'Example '}
+  const cardFixture = {text: 'Example'}
 
   shallowRenderer.render(<Card card={cardFixture}/>)
   const component = shallowRenderer.getRenderOutput()

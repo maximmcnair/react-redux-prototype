@@ -1,2 +1,127 @@
 @import "./bourbon/bourbon";
 @import "./normalize";
+
+/**
+ * Variables
+ */
+$color-border: #D3D9E5;
+$color-white: #FFFFFF;
+$color-bg: #F5F8F9;
+$color-bg-mid: #F2F7F9;
+$color-title: #506067;
+$color-subtitle: #A4B7C0;
+
+/**
+ * Structure
+ */
+body{
+  background: $color-bg;
+  font-family: "Circular";
+  margin: 0px;
+  padding: 0px;
+}
+
+/**
+ * Board
+ */
+.board-header{
+  background: $color-white;
+  padding: 28px;
+  border-bottom: 1px solid $color-border;
+}
+.board-header-title{
+  margin: 0px 0px 3px 0px;
+  font-size: 18px;
+  color: $color-title;
+  font-weight: 400;
+}
+.board-header-client{
+  margin: 0px;
+  font-size: 14px;
+  color: $color-subtitle;
+  font-weight: 400;
+}
+.board-lists{
+  padding: 28px
+}
+
+/**
+ * List
+ */
+.list{
+  background: $color-bg-mid;
+  border: 1px solid $color-border;
+  border-right-width: 0px;
+  width: 272px;
+  display: inline-block;
+  vertical-align: top;
+  height: 587px;
+}
+
+.list-new{
+  width: 272px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid $color-border;
+  height: 587px;
+}
+
+.list-header{
+  background: $color-white;
+  height: 57px;
+  border-bottom: 1px solid $color-border;
+}
+
+.list-title{
+  color: #45474D;
+  font-size: 14px;
+  text-align: center;
+  margin: 0px;
+  padding-top: 20px;
+}
+
+.list-cards{
+  padding: 12px 20px;
+}
+
+.list-btn{
+  text-align: center;
+  margin-top: 20px;
+}
+
+/**
+ * Card
+ */
+.card{
+  background-color: #ffffff;
+  color: #45474D;
+  font-size: 13px;
+  padding: 10px;
+  border: 1px solid #CFD6E7;
+  margin-bottom: 12px;
+  box-shadow: 1px 1px 2px rgba(#7A859B, .17);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/**
+ * Button
+ */
+.btn{
+  background: #CFD6E7;
+  color: #7A859B;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover{
+  background: #259AF8;
+  color: $color-white;
+}
+
+.btn-sm{
+  font-size: 12px;
+  border-radius: 17px;
+  padding: 5px 13px;
+}

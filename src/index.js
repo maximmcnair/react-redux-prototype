@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 // containers
+import Board from './containers/Board'
 import DevTools from './containers/DevTools'
 
 // setup redux
@@ -55,6 +56,7 @@ const store = configureStore([
 ReactDOM.render(
   <Provider store={store}>
     <div>
+      <Board />
       <DevTools />
     </div>
   </Provider>

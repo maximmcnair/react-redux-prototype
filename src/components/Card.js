@@ -7,9 +7,7 @@ import React, { Component, PropTypes } from 'react'
 export default class Card extends Component {
   render(){
     return (
-      <div className="card">
-        {this.props.card.title}
-      </div>
+      <div className="card">{this.props.card.text}</div>
     )
   }
 }

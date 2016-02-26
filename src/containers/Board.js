@@ -35,7 +35,7 @@ class Board extends React.Component {
           })}
           <div className="list-new">
             <div className="list-btn">
-              <span className="btn btn-sm">Create a new list </span>
+              <span className="btn btn-sm">Create list</span>
             </div>
           </div>
         </div>

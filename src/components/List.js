@@ -42,7 +42,7 @@ class List extends Component {
         <div className="list-cards">
           {cardNodes}
           <div className="list-btn">
-            <span className="btn btn-sm">Create a task</span>
+            <span className="btn btn-sm">Create task</span>
           </div>
         </div>
       </div>

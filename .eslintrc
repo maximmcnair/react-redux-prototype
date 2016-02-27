@@ -13,7 +13,6 @@
     "strict": [2, "never"],
     "babel/generator-star-spacing": 1,
     "babel/object-shorthand": 1,
-    "babel/arrow-parens": 1,
     "babel/no-await-in-loop": 1,
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,

@@ -54,7 +54,7 @@ test('Board container rendering', (t) => {
   let boardListsInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'board-lists').innerHTML
   // List component has been mocked by a mock component that renders `**test**`
   const amountOfTestStringsRendered = (boardListsInnerHtml.match(/test/g) || []).length
-  t.equal(amountOfTestStringsRendered, 3, 'it should render board lists')
+  t.equal(amountOfTestStringsRendered, 2, 'it should render board lists')
 
   // Find list button
   let listBtnInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'btn').innerHTML

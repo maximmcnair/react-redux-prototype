@@ -21,6 +21,7 @@ const BoardReducer = (state = {}, action) => {
       // push new card
       list1.cards.push({text: action.text, list: action.list, _id: action.id})
       break
+
     case CardTypes.UPDATE_CARD:
       // console.log('UPDATE_CARD', action)
       // find list
@@ -32,19 +33,73 @@ const BoardReducer = (state = {}, action) => {
       })
       card2.text = action.text
       break
+
+    case CardTypes.MOVE_CARD:
+      // console.log('MOVE_CARD', action)
+      // get original list
+      let originalList = state.lists.find((list) => {
+        return list._id === action.originalList
+      })
+      // get card details
+      let selectedCard
+      let selectedCardIndex
+      originalList.cards.forEach((card, i) => {
+        if(card._id === action.originalId){
+          selectedCard = card
+          selectedCardIndex = i
+        }
+      })
+      // remove from original list
+      originalList.cards.splice(selectedCardIndex, 1)
+
+      // find all card models to update
+      let originalListCardModels = originalList.cards.filter((card) => {
+          return card.position >= action.originalPosition
+      })
+      // update original list positions
+      originalListCardModels.forEach((card) => {
+        card.position = card.position - 1
+      })
+
+      // add to target list
+      let targetList = state.lists.find((list) => {
+        return list._id === action.targetList
+      })
+
+      // update selectedCard's list id
+      selectedCard.list = targetList._id
+      // update selectedCard's position
+      selectedCard.position = action.targetPosition
+
+      // find all card models to update
+      let targetListCardModels = targetList.cards.filter((card) => {
+          return card.position >= action.targetPosition
+      })
+      // update target list positions
+      targetListCardModels.forEach((card) => {
+        card.position = card.position + 1
+      })
+
+      // debugPositions(targetListCardModels)
+
+      // add to target list
+      targetList.cards.push(selectedCard)
+
+      break
+
     case CardTypes.DELETE_CARD:
       // find list
-      let list3 = state.lists.find((list) => {
+      let list4 = state.lists.find((list) => {
         return list._id === action.list
       })
       let cardIndex
-      list3.cards.forEach((card, i) => {
+      list4.cards.forEach((card, i) => {
         if(card._id === action.id){
           cardIndex = i
         }
       })
       // remove card from list
-      list3.cards.splice(cardIndex, 1)
+      list4.cards.splice(cardIndex, 1)
       // TODO update card positions
       break
   }

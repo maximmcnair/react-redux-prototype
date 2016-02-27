@@ -10,6 +10,11 @@ export default {
         , list: '0'
         , position: 0
         }
+      , { text: 'Design homepage'
+        , _id: '10'
+        , list: '0'
+        , position: 1
+        }
       ]
     }
   , { title: 'In Progress'

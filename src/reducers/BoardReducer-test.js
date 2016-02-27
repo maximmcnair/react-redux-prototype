@@ -65,6 +65,55 @@ test('BoardReducer handling UPDATE_CARD', t => {
   t.end()
 })
 
+test('BoardReducer handing MOVE_CARD', t => {
+  let state = BoardReducer(boardFixture, {
+    type: CardTypes.MOVE_CARD
+  , originalId: '0'
+  , originalList: '0'
+  , originalPosition: 0
+  , targetList: '1'
+  , targetPosition: 1
+  })
+
+  // Check card has been removed from original list
+  let originalList = state.lists.find(list => {
+    return list._id === '0'
+  })
+  let cardInOriginalList = originalList.cards.find(card => {
+    return card._id === '0'
+  })
+  t.equal(cardInOriginalList, undefined, 'should remove card from original list')
+
+  // check positions of originalList have been updated
+  let anotherCardInOriginalList = originalList.cards.find(card => {
+    return card._id === '10'
+  })
+  t.equal(anotherCardInOriginalList.position, 0, 'should update other cards\' positions in original list')
+
+  // Check card has been added to target list
+  let targetList = state.lists.find(list => {
+    return list._id === '1'
+  })
+  let cardInTargetList = targetList.cards.find(card => {
+    return card._id === '0'
+  })
+  t.equal(cardInTargetList.text, 'Design homepage', 'should remove card from original list')
+
+  // Check card's list has been updated
+  t.equal(cardInTargetList.list, '1', 'should have updated card\'s .list')
+
+  // Check card's position has been updated
+  t.equal(cardInTargetList.position, 1, 'should have updated card\'s .position')
+
+  // check positions have been updated
+  let anotherCardInTargetList = targetList.cards.find(card => {
+    return card._id === '4'
+  })
+  t.equal(anotherCardInTargetList.position, 4, 'should update other cards\' positions in target list')
+
+  t.end()
+})
+
 test('BoardReducer handing DELETE_CARD', t => {
   // console.log(boardFixture.lists[1].cards.length - 1)
   // remove `Team permisson scoping` card

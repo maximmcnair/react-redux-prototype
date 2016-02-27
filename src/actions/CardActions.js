@@ -26,7 +26,7 @@ export function moveCard(original, target){
  , originalId: original._id
  , originalList: original.list
  , originalPosition: original.position
- , targetList:  original.list
+ , targetList: original.list
  , targetPosition: original.position
  }
 }

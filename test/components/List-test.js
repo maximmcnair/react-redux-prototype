@@ -6,13 +6,13 @@ import sd from 'skin-deep'
 
 // Components
 import List from '../../src/components/List'
-import BlankComponent from '../mocks/BlankComponent'
 
-// Mock Card component dependeny to render `testString`
-const testString = '**test**'
+/* eslint-disable babel/object-shorthand */
+// NOTE bable doesn't work in rewire
 List.__Rewire__('Card', React.createClass({
   render: function() { return <div>**test**</div>; }
 }))
+/* eslint-enable babel/object-shorthand */
 
 /**
  * List Tests

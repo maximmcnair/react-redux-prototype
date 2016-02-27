@@ -7,18 +7,25 @@ import jsdom from 'jsdom'
 import { Provider } from 'react-redux'
 import { createStore, compose } from 'redux'
 
-
 // Components
 import Board from '../../src/containers/Board'
-import Card from '../../src/components/Card'
+
+/* eslint-disable babel/object-shorthand */
+// NOTE bable doesn't work in rewire
+Board.__Rewire__('List', React.createClass({
+  render: function() { return <div>**test**</div>; }
+}))
+/* eslint-enable babel/object-shorthand */
+
+
+// Fixtures
+import boardFixture from '../fixtures/boardFixture'
 
 // A super simple DOM ready for React to render into
 // Store this DOM and the window in global scope ready for React to access
-// global.document = jsdom.jsdom('<!doctype html><html><body></body></html>')
-// global.window = document.parentWindow
-global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
-global.window = document.defaultView;
-global.navigator = {userAgent: 'node.js'};
+global.document = jsdom.jsdom('<!doctype html><html><body></body></html>')
+global.window = document.defaultView
+global.navigator = {userAgent: 'node.js'}
 
 /**
  * Board container tests
@@ -29,7 +36,7 @@ test('Board container rendering', (t) => {
     return state
   }
   // Create a store with mocked reducer and board fixture
-  let store = createStore(mockReducer, [])
+  let store = createStore(mockReducer, boardFixture)
   // render board wrapper in Provider for redux store
   let el = TestUtils.renderIntoDocument(
     <Provider store={store}>
@@ -43,9 +50,15 @@ test('Board container rendering', (t) => {
   let actualClientInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'board-header-client').innerHTML
   t.equal(actualClientInnerHtml, 'Connected Ventures', 'it should render board client')
 
-  'it should render board lists'
-  'it should render new list button'
+  // Find board-lists element
+  let boardListsInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'board-lists').innerHTML
+  // List component has been mocked by a mock component that renders `**test**`
+  const amountOfTestStringsRendered = (boardListsInnerHtml.match(/test/g) || []).length
+  t.equal(amountOfTestStringsRendered, 3, 'it should render board lists')
+
+  // Find list button
+  let listBtnInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'btn').innerHTML
+  t.equal(listBtnInnerHtml, 'Create list', 'it should render new list button')
 
   t.end()
-
 })

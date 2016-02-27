@@ -19,7 +19,7 @@ Board.__Rewire__('List', React.createClass({
 
 
 // Fixtures
-import boardFixture from '../fixtures/boardFixture'
+import boardFixture from '../__fixtures__/boardFixture'
 
 // A super simple DOM ready for React to render into
 // Store this DOM and the window in global scope ready for React to access

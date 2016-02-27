@@ -12,10 +12,11 @@ export function newCard(text, list, id){
   , id
   }
 }
-export function updateCard(id, text){
+export function updateCard(id, list, text){
   return {
     type: CardTypes.UPDATE_CARD
   , id
+  , list
   , text
   }
 }

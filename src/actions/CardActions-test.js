@@ -19,10 +19,12 @@ test('CardActions.newCard()', (t) => {
 
 test('CardActions.updateCard()', (t) => {
   const id = '012'
+  const list = '0'
   const text = 'make pancakes'
   t.equal(CardActions.updateCard(id, text).type, CardTypes.UPDATE_CARD, 'should have type UPDATE_CARD')
-  t.equal(CardActions.updateCard(id, text).id, id, 'should have correct id')
-  t.equal(CardActions.updateCard(id, text).text, text, 'should have correct text')
+  t.equal(CardActions.updateCard(id, list, text).id, id, 'should have correct id')
+  t.equal(CardActions.updateCard(id, list, text).list, list, 'should have correct list')
+  t.equal(CardActions.updateCard(id, list, text).text, text, 'should have correct text')
   t.end()
 })
 

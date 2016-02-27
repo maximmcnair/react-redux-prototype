@@ -11,7 +11,10 @@ test('card component', (t) => {
   const shallowRenderer = TestUtils.createRenderer()
   const cardFixture = {text: 'Example'}
 
-  shallowRenderer.render(<Card card={cardFixture}/>)
+  // Stub the React DnD connector functions with an identity function
+  var identity = function (el) { return el; }
+
+  shallowRenderer.render(<Card.DecoratedComponent.DecoratedComponent connectDragSource={identity} connectDropTarget={identity} card={cardFixture}/>)
   const component = shallowRenderer.getRenderOutput()
 
   t.equal(component.props.className, 'card', 'should render an element with .card className')

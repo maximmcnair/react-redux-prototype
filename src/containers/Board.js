@@ -1,6 +1,8 @@
 // Dependencies
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 // Components
 import List from '../components/List'
@@ -42,6 +44,7 @@ class Board extends React.Component {
     )
   }
 }
+
 Board.propTypes =
   { board: PropTypes.object
   }
@@ -52,4 +55,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(Board)
+export default connect(select)(DragDropContext(HTML5Backend)(Board))

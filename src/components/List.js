@@ -14,6 +14,12 @@ class List extends Component {
     super(props)
   }
 
+  updatePositions(dragItem, hoverItem){
+    // const { dispatch } = this.props
+    // dispatch()
+    // dispatch(updateOrder(dragItem, hoverItem))
+  }
+
   sortByPosition(cards){
     // sort cards based on _id
     return Ramda.sort(function(a, b) {
@@ -62,5 +68,12 @@ List.propTypes =
   , list: PropTypes.object
   , connectDropTarget: PropTypes.func
   }
+
+
+// function select(state) {
+//   return {}
+// }
+
+// export default connect(select)(List)
 
 export default List

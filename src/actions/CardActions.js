@@ -4,10 +4,13 @@ import * as CardTypes from './CardTypes'
 /**
  * Action creators
  */
-export function newCard(){
- return {
-   type: CardTypes.NEW_CARD
- }
+export function newCard(text, list, id){
+  return {
+    type: CardTypes.NEW_CARD
+  , text
+  , list
+  , id
+  }
 }
 export function updateCard(id, text){
   return {

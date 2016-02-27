@@ -15,17 +15,27 @@ test('BoardReducer initial state', t => {
 })
 
 test('BoardReducer handling NEW_CARD', t => {
+  const cardToCreate =
+    { text: 'make pancakes'
+    , list: '1'
+    , _id: '5'
+    }
+  var state = BoardReducer(boardFixture, {
+    type: CardTypes.NEW_CARD
+  , text: cardToCreate.text
+  , list: cardToCreate.list
+  , id: cardToCreate._id
+  })
 
-  console.log(
-    BoardReducer(boardFixture, {
-      type: CardTypes.NEW_CARD
-    })
-  )
+  // Find list
+  var correctList = state.lists.find(list => {
+    return list._id === cardToCreate.list
+  })
+  var newCard = correctList.cards.find(card => {
+    return card._id === cardToCreate._id
+  })
 
-  // const newCard =
-  //   { text: 'Team permisson scoping'
-  //   , _id: '1'
-  //   }
+  t.looseEqual(newCard, cardToCreate, 'should add new card to correct list')
 
   t.end()
 })

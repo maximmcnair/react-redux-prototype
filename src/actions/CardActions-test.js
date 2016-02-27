@@ -7,7 +7,13 @@ import * as CardActions from './CardActions'
  * Card Actions test
  */
 test('CardActions.newCard()', (t) => {
-  t.equal(CardActions.newCard().type, CardTypes.NEW_CARD, 'should have type NEW_CARD')
+  const text = 'make pancakes'
+  const list = '0'
+  const id = '5'
+  t.equal(CardActions.newCard(text).type, CardTypes.NEW_CARD, 'should have type NEW_CARD')
+  t.equal(CardActions.newCard(text, list, id).text, text, 'should have correct text')
+  t.equal(CardActions.newCard(text, list, id).list, list, 'should have correct list')
+  t.equal(CardActions.newCard(text, list, id).id, id, 'should have correct id')
   t.end()
 })
 

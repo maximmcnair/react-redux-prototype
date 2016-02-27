@@ -36,7 +36,7 @@ test('Board container rendering', (t) => {
     return state
   }
   // Create a store with mocked reducer and board fixture
-  let store = createStore(mockReducer, boardFixture)
+  let store = createStore(mockReducer, {board: boardFixture})
   // render board wrapper in Provider for redux store
   let el = TestUtils.renderIntoDocument(
     <Provider store={store}>

@@ -48,7 +48,7 @@ Board.propTypes =
 
 function select(state) {
   return {
-    board: state
+    board: state.board
   }
 }
 

@@ -18,7 +18,7 @@ List.__Rewire__('Card', React.createClass({
  * List Tests
  */
 test('List component', (t) => {
-  const shallowRenderer = TestUtils.createRenderer()
+  // const shallowRenderer = TestUtils.createRenderer()
   const listFixture =
     { title: 'Backlog'
     , cards:
@@ -36,10 +36,15 @@ test('List component', (t) => {
 
   const tree = sd.shallowRender(<List list={listFixture}/>)
 
+  // Render list title
   t.equal(tree.subTree('.list-title').text(), 'Backlog', 'should render list title')
 
+  // Check it renders cards
   const amountOfTestStringsRendered = (tree.toString().match(/test/g) || []).length
   t.equal(amountOfTestStringsRendered, 3, 'should render cards')
+
+  // Check create list button is rendered
+  t.equal(tree.subTree('.btn').text(), 'Create task', 'it should render create task button')
 
   t.end()
 })

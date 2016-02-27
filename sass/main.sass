@@ -19,6 +19,13 @@ body{
   font-family: "Circular";
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after{
+  box-sizing: inherit
 }
 
 /**
@@ -96,12 +103,27 @@ body{
   background-color: #ffffff;
   color: #45474D;
   font-size: 13px;
-  padding: 10px;
   border: 1px solid #CFD6E7;
   margin-bottom: 12px;
   box-shadow: 1px 1px 2px rgba(#7A859B, .17);
   border-radius: 2px;
   cursor: pointer;
+}
+
+.card-textarea{
+  padding: 10px;
+  display: block;
+  border: none;
+  width: 100%;
+}
+
+.card-textarea:focus{
+  outline: none;
+}
+
+.card-text{
+  padding: 10px;
+  display: block;
 }
 
 /**

@@ -60,6 +60,7 @@
     "react-dom": "^0.14.3",
     "react-prefixer": "^1.1.4",
     "react-redux": "^4.4.0",
+    "react-textarea-autosize": "^3.3.0",
     "redux": "^3.3.1"
   }
 }

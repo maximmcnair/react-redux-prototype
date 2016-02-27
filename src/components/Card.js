@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { ItemTypes } from './ItemTypes'
 import { DragSource, DropTarget } from 'react-dnd'
 import { pipe } from 'ramda'
+// import Textarea from 'react-textarea-autosize'
 
 // import prefix from 'react-prefixer'
 
@@ -54,7 +55,7 @@ class Card extends Component {
 
     return connectDragSource(connectDropTarget(
       <div className="card" style={styles}>
-        {this.props.card.text}
+        <span className="card-text">{this.props.card.text}</span>
       </div>
     ))
   }

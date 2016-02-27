@@ -18,7 +18,7 @@ test('card component', (t) => {
   const component = shallowRenderer.getRenderOutput()
 
   t.equal(component.props.className, 'card', 'should render an element with .card className')
-  t.equal(component.props.children, 'Example', 'should render card text')
+  t.equal(component.props.children.props.children, 'Example', 'should render card text')
 
   t.end()
 })

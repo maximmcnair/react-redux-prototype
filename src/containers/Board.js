@@ -21,7 +21,6 @@ class Board extends React.Component {
 
   moveCard(dragItem, hoverItem){
     const { dispatch } = this.props
-    console.log(dragItem, hoverItem)
     dispatch(CardActions.moveCard(dragItem, hoverItem))
   }
 

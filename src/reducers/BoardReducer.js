@@ -3,6 +3,7 @@ import Ramda from 'ramda'
 
 // Types
 import * as CardTypes from '../actions/CardTypes'
+import * as ListTypes from '../actions/ListTypes'
 
 /**
  * Board Reducer
@@ -101,6 +102,14 @@ const BoardReducer = (state = {}, action) => {
       // remove card from list
       list4.cards.splice(cardIndex, 1)
       // TODO update card positions
+      break
+
+    case ListTypes.NEW_LIST:
+      state.lists.push({
+        title: action.title
+      , _id: action.id
+      , cards: []
+      })
       break
   }
   return state

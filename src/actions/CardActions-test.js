@@ -35,8 +35,8 @@ test('CardActions.moveCard()', (t) => {
   t.equal(CardActions.moveCard(original, target).originalId, original._id, 'should have correct originalId')
   t.equal(CardActions.moveCard(original, target).originalList, original.list, 'should have correct originalList')
   t.equal(CardActions.moveCard(original, target).originalPosition, original.position, 'should have correct originalPosition')
-  t.equal(CardActions.moveCard(original, target).targetList, original.list, 'should have correct targetList')
-  t.equal(CardActions.moveCard(original, target).targetPosition, original.position, 'should have correct targetPosition')
+  t.equal(CardActions.moveCard(original, target).targetList, target.list, 'should have correct targetList')
+  t.equal(CardActions.moveCard(original, target).targetPosition, target.position, 'should have correct targetPosition')
   t.end()
 })
 

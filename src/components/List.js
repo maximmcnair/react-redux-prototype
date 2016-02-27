@@ -14,12 +14,6 @@ class List extends Component {
     super(props)
   }
 
-  updatePositions(dragItem, hoverItem){
-    // const { dispatch } = this.props
-    // dispatch()
-    // dispatch(updateOrder(dragItem, hoverItem))
-  }
-
   sortByPosition(cards){
     // sort cards based on _id
     return Ramda.sort(function(a, b) {
@@ -36,7 +30,7 @@ class List extends Component {
           key={card._id}
           index={i}
           id={card._id}
-          updatePositions={this.updatePositions}
+          moveCard={this.props.moveCard}
         />
       )
     }.bind(this))
@@ -63,17 +57,8 @@ List.propTypes =
   { title: PropTypes.string
   , _id: PropTypes.string
   , cards: PropTypes.array
-  // , moveCard: PropTypes.func
-  , dispatch: PropTypes.func
+  , moveCard: PropTypes.func
   , list: PropTypes.object
-  , connectDropTarget: PropTypes.func
   }
-
-
-// function select(state) {
-//   return {}
-// }
-
-// export default connect(select)(List)
 
 export default List

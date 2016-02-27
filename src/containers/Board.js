@@ -7,12 +7,22 @@ import HTML5Backend from 'react-dnd-html5-backend'
 // Components
 import List from '../components/List'
 
+// Actions
+import * as CardActions from '../actions/CardActions'
+
 /**
  * Board Component
  */
 class Board extends React.Component {
   constructor(props) {
     super(props)
+    this.moveCard = this.moveCard.bind(this)
+  }
+
+  moveCard(dragItem, hoverItem){
+    const { dispatch } = this.props
+    console.log(dragItem, hoverItem)
+    dispatch(CardActions.moveCard(dragItem, hoverItem))
   }
 
   render() {
@@ -47,6 +57,7 @@ class Board extends React.Component {
 
 Board.propTypes =
   { board: PropTypes.object
+  , dispatch: PropTypes.func
   }
 
 function select(state) {

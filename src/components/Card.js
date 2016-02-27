@@ -23,7 +23,7 @@ const cardTarget = {
     }
 
     // Time to actually perform the action
-    props.updatePositions(dragItem, hoverItem)
+    props.moveCard(dragItem, hoverItem)
   }
 }
 

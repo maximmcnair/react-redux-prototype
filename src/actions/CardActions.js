@@ -21,14 +21,14 @@ export function updateCard(id, list, text){
   }
 }
 export function moveCard(original, target){
- return {
-   type: CardTypes.MOVE_CARD
- , originalId: original._id
- , originalList: original.list
- , originalPosition: original.position
- , targetList: original.list
- , targetPosition: original.position
- }
+  return {
+    type: CardTypes.MOVE_CARD
+  , originalId: original._id
+  , originalList: original.list
+  , originalPosition: original.position
+  , targetList: target.list
+  , targetPosition: target.position
+  }
 }
 
 export function deleteCard(id){

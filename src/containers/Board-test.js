@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { createStore, compose } from 'redux'
 
 // Components
-import Board from '../../src/containers/Board'
+import Board from './Board'
 
 /* eslint-disable babel/object-shorthand */
 // NOTE bable doesn't work in rewire

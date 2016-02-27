@@ -5,7 +5,7 @@ import TestUtils from 'react-addons-test-utils'
 import sd from 'skin-deep'
 
 // Components
-import List from '../../src/components/List'
+import List from './List'
 
 /* eslint-disable babel/object-shorthand */
 // NOTE bable doesn't work in rewire

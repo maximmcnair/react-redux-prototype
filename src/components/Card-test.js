@@ -2,7 +2,7 @@
 import test from 'tape'
 
 // Component
-import Card from '../../src/components/Card'
+import Card from './Card'
 
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'

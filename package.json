@@ -8,8 +8,8 @@
     "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
     "lint": "eslint src",
-    "test": "NODE_ENV=testing babel-node test/ | faucet",
-    "test:debug": "NODE_ENV=testing babel-node test/"
+    "test": "NODE_ENV=testing babel-node src/test.js | faucet",
+    "test:debug": "NODE_ENV=testing babel-node src/test.js"
   },
   "devDependencies": {
     "babel-core": "^6.3.15",

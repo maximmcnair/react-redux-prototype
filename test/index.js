@@ -1,3 +1,7 @@
+require('./components/Card-test')
+require('./components/List-test')
+
+
 // import test from 'tape'
 //
 // test('A passing test', (assert) => {

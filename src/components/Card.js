@@ -62,10 +62,10 @@ class Card extends Component {
 
 Card.propTypes =
   { card: PropTypes.object
-  // , isDragging: PropTypes.func
+  , isDragging: PropTypes.bool
   , connectDragSource: PropTypes.func
   , connectDropTarget: PropTypes.func
-  , hovered: PropTypes.func
+  , hovered: PropTypes.bool
   }
 
 export default pipe(

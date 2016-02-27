@@ -49,12 +49,11 @@ class Card extends Component {
   render(){
     const { isDragging, connectDragSource, connectDropTarget, hovered } = this.props
     const styles = {
-      borderTop: hovered ? '4px solid blue' : '1px solid #CFD6E7'
-    , opacity: isDragging ? 0 : 1
+      opacity: isDragging ? 0 : 1
     }
 
     return connectDragSource(connectDropTarget(
-      <div className="card" style={styles}>
+      <div className={ hovered ? 'card card-hover' : 'card'} style={styles}>
         <span className="card-text">{this.props.card.text}</span>
       </div>
     ))

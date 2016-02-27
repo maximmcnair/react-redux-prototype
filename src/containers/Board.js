@@ -8,7 +8,7 @@ import List from '../components/List'
 /**
  * Board Component
  */
-@connect((state) => ({lists: state}))
+// @connect((state) => ({lists: state}))
 class Board extends React.Component {
   constructor(props) {
     super(props)
@@ -17,6 +17,8 @@ class Board extends React.Component {
   render() {
     const { lists } = this.props
 
+    console.log('lists', lists)
+
     return (
       <section className="board">
         <header className="board-header">
@@ -24,15 +26,6 @@ class Board extends React.Component {
           <h3 className="board-header-client">Connected Ventures</h3>
         </header>
         <div className="board-lists">
-          {lists.map((list, i) => {
-            return (
-              <List
-                list={list}
-                key={list._id}
-                moveCard={this.moveCard}
-              />
-            )
-          })}
           <div className="list-new">
             <div className="list-btn">
               <span className="btn btn-sm">Create list</span>
@@ -48,4 +41,21 @@ Board.propTypes =
   { lists: PropTypes.array
   }
 
-export default Board
+function select(state) {
+  return {
+    lists: state
+  }
+}
+
+export default connect(select)(Board)
+
+
+  // {lists.map((list, i) => {
+  //   return (
+  //     <List
+  //       list={list}
+  //       key={list._id}
+  //       moveCard={this.moveCard}
+  //     />
+  //   )
+  // })}

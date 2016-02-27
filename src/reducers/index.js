@@ -1,10 +1,14 @@
 // Dependencies
+import { combineReducers } from 'redux'
+
+// Reducers
+import board from './BoardReducer'
 
 /**
  * Root Reducer
  */
-function RootReducer(state = {}, action) {
-  return state
-}
+const RootReducer = combineReducers({
+  board
+})
 
 export default RootReducer

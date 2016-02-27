@@ -8,8 +8,10 @@ import sd from 'skin-deep'
 import List from '../../src/components/List'
 import BlankComponent from '../mocks/BlankComponent'
 
+// Mock Card component dependeny to render `testString`
+const testString = '**test**'
 List.__Rewire__('Card', React.createClass({
-  render: function() { return <div {...this.props}></div>; }
+  render: function() { return <div>**test**</div>; }
 }))
 
 /**
@@ -36,9 +38,8 @@ test('List component', (t) => {
 
   t.equal(tree.subTree('.list-title').text(), 'Backlog', 'should render list title')
 
-  'should render cards'
-
-  console.log(tree.toString())
+  const amountOfTestStringsRendered = (tree.toString().match(/test/g) || []).length
+  t.equal(amountOfTestStringsRendered, 3, 'should render cards')
 
   t.end()
 })

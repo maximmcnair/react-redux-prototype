@@ -64,3 +64,30 @@ test('BoardReducer handling UPDATE_CARD', t => {
 
   t.end()
 })
+
+test('BoardReducer handing DELETE_CARD', t => {
+  // console.log(boardFixture.lists[1].cards.length - 1)
+  // remove `Team permisson scoping` card
+  let state = BoardReducer(boardFixture, {
+    type: CardTypes.DELETE_CARD
+  , id: '1'
+  , list: '1'
+  })
+
+  // Find list
+  let correctList = state.lists.find(list => {
+    return list._id === '1'
+  })
+  // Find card
+  let card = correctList.cards.find(card => {
+    return card._id === '1'
+  })
+
+  // Check card has been removed
+  t.equal(card, undefined, 'should delete card')
+  t.equal(correctList.cards.length, boardFixture.lists[1].cards.length - 1, 'should delete card')
+  // NOTE this will break if list sorting is added
+
+  // TODO update card positions
+  t.end()
+})

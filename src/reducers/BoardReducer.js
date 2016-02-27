@@ -32,6 +32,21 @@ const BoardReducer = (state = {}, action) => {
       })
       card2.text = action.text
       break
+    case CardTypes.DELETE_CARD:
+      // find list
+      let list3 = state.lists.find((list) => {
+        return list._id === action.list
+      })
+      let cardIndex
+      list3.cards.forEach((card, i) => {
+        if(card._id === action.id){
+          cardIndex = i
+        }
+      })
+      // remove card from list
+      list3.cards.splice(cardIndex, 1)
+      // TODO update card positions
+      break
   }
   return state
 }

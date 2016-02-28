@@ -9,6 +9,7 @@ import Card from './Card'
 
 // Actions
 import * as CardActions from '../actions/CardActions'
+import * as ListActions from '../actions/ListActions'
 
 /**
  * List
@@ -16,11 +17,17 @@ import * as CardActions from '../actions/CardActions'
 export class List extends Component {
   constructor(props) {
     super(props)
-    this.state = {create: false, text: ''}
+    this.state = {create: false, text: '', edit: false, title: ''}
+
     this.newCardKeydown = this.newCardKeydown.bind(this)
     this.onNewCardChange = this.onNewCardChange.bind(this)
     this.showNewCard = this.showNewCard.bind(this)
     this.createNewCard = this.createNewCard.bind(this)
+
+    this.showEditableTitle = this.showEditableTitle.bind(this)
+    this.listTitleKeydown = this.listTitleKeydown.bind(this)
+    this.onListTitleChange = this.onListTitleChange.bind(this)
+    this.saveListTitle = this.saveListTitle.bind(this)
   }
 
   sortByPosition(cards){
@@ -29,7 +36,11 @@ export class List extends Component {
       return a.position - b.position
     }, cards)
   }
+
   // TODO test
+  /**
+   * New Card
+   */
   onNewCardChange(e){
     this.setState({text: e.currentTarget.value})
   }
@@ -51,8 +62,35 @@ export class List extends Component {
     dispatch(CardActions.newCard(this.state.text, this.props.list._id, randomNum))
     this.setState({text: '', create: false})
   }
+
+  /**
+   * Edit title
+   */
+  showEditableTitle(){
+    this.setState({edit: true, title: this.props.list.title})
+  }
+
+  listTitleKeydown(event){
+    if(event.charCode == 13){
+      event.preventDefault()
+      this.saveListTitle()
+    }
+  }
+
+  onListTitleChange(e){
+    this.setState({title: e.currentTarget.value})
+  }
+
+  saveListTitle(){
+    const { dispatch } = this.props
+    dispatch(ListActions.updateList(this.state.title, this.props.list._id))
+    this.setState({title: '', edit: false})
+  }
   // TODO test
 
+  /**
+   * Render
+   */
   render() {
     // create nodes from sorted cards
     const cardNodes = this.sortByPosition(this.props.list.cards).map(function(card, i){
@@ -66,12 +104,27 @@ export class List extends Component {
         />
       )
     }.bind(this))
+
     // let's render!
     return (
       <div className="list" style={{height: this.props.height + 'px'}}>
-        <header className="list-header">
-          <h3 className="list-title">{this.props.list.title}</h3>
-        </header>
+        { this.state.edit ? (
+          <header className="list-header">
+            <textarea
+              className="list-title-textarea"
+              onKeyPress={this.listTitleKeydown}
+              onChange={this.onListTitleChange}
+              value={this.state.title}
+              placeholder="Add name"
+              autoFocus={true}
+            />
+            <a className="btn btn-sm list-header-save" onClick={this.saveListTitle}>Save</a>
+          </header>
+        ) : (
+          <header className="list-header" onDoubleClick={this.showEditableTitle}>
+            <h3 className="list-title">{this.props.list.title}</h3>
+          </header>
+        ) }
         <div className="list-cards" style={{height: (this.props.height  - 57) + 'px'}}>
           {cardNodes}
           {this.state.create ? (

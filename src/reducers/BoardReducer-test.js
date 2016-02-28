@@ -160,3 +160,21 @@ test('BoardReducer handing NEW_LIST', t => {
 
   t.end()
 })
+
+test('BoardReducer handing UPDATE_LIST', t => {
+  let state = BoardReducer(boardFixture, {
+    type: ListTypes.UPDATE_LIST
+  , title: 'new title'
+  , id: '0'
+  })
+
+  // Find list
+  let correctList = state.lists.find(list => {
+    return list._id === '0'
+  })
+
+  // Check list has been added
+  t.equal(correctList.title, 'new title', 'should add new board')
+
+  t.end()
+})

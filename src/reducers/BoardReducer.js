@@ -111,6 +111,14 @@ const BoardReducer = (state = {}, action) => {
       , cards: []
       })
       break
+
+    case ListTypes.UPDATE_LIST:
+      // find list
+      let list5 = state.lists.find((list) => {
+        return list._id === action.id
+      })
+      list5.title = action.title
+      break
   }
   return state
 }

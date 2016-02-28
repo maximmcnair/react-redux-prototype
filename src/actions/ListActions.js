@@ -11,3 +11,11 @@ export function newList(title, id){
   , id
   }
 }
+
+export function updateList(title, id){
+ return {
+   type: ListTypes.UPDATE_LIST
+ , title
+ , id
+ }
+}

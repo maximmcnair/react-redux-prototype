@@ -16,4 +16,10 @@ open http://localhost:3000
 ```bash
 npm run test
 ```
-**note this will remove console.logs, if you want console.logs run `npm run test:debug` instead**
+**note: this will remove console.logs, if you want console.logs run `npm run test:debug` instead**
+
+### Test Coverage
+```bash
+npm run test:cover
+```
+**note: instanbul will create an html coverage report in the coverage/lcov-report folder** 

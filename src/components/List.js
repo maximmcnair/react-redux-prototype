@@ -106,3 +106,5 @@ function select(state) {
 }
 
 export default connect(select)(List)
+
+export let undecorated = Card

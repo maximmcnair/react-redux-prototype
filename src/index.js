@@ -27,7 +27,7 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <Board />
-      <DevTools />
     </div>
   </Provider>
 , document.getElementById('root'))
+// <DevTools />

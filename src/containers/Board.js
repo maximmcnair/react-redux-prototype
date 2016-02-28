@@ -30,10 +30,12 @@ class Board extends React.Component {
     this.setState({title: e.currentTarget.value})
   }
 
+  // TODO test
   showNewList(){
     this.setState({create: true})
   }
 
+  // TODO test
   newListKeydown(event){
     if(event.charCode == 13){
       event.preventDefault()
@@ -41,6 +43,7 @@ class Board extends React.Component {
     }
   }
 
+  // TODO test
   createNewList(){
     const { dispatch } = this.props
     let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
@@ -48,11 +51,11 @@ class Board extends React.Component {
     this.setState({title: '', create: false})
   }
 
+  // TODO test
   moveCard(dragItem, hoverItem){
     const { dispatch } = this.props
     dispatch(CardActions.moveCard(dragItem, hoverItem))
   }
-  // TODO test
 
   updateWidth(listsLength){
     let listWidth = 272

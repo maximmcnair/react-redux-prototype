@@ -89,6 +89,9 @@ export class Card extends Component {
     dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
   }
 
+  /**
+   * Render
+   */
   render(){
     const { isDragging, connectDragSource, connectDropTarget, hovered } = this.props
     const styles = {

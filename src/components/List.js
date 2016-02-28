@@ -37,7 +37,6 @@ export class List extends Component {
     }, cards)
   }
 
-  // TODO test
   /**
    * New Card
    */
@@ -58,6 +57,7 @@ export class List extends Component {
 
   createNewCard(){
     const { dispatch } = this.props
+    // NOTE this generates a fake _id, this would be handled by a database
     let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
     dispatch(CardActions.newCard(this.state.text, this.props.list._id, randomNum))
     this.setState({text: '', create: false})
@@ -66,10 +66,12 @@ export class List extends Component {
   /**
    * Edit title
    */
+  // TODO test
   showEditableTitle(){
     this.setState({edit: true, title: this.props.list.title})
   }
 
+  // TODO test
   listTitleKeydown(event){
     if(event.charCode == 13){
       event.preventDefault()
@@ -77,16 +79,17 @@ export class List extends Component {
     }
   }
 
+  // TODO test
   onListTitleChange(e){
     this.setState({title: e.currentTarget.value})
   }
 
+  // TODO test
   saveListTitle(){
     const { dispatch } = this.props
     dispatch(ListActions.updateList(this.state.title, this.props.list._id))
     this.setState({title: '', edit: false})
   }
-  // TODO test
 
   /**
    * Render

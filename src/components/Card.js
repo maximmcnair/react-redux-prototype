@@ -9,9 +9,7 @@ import Textarea from 'react-textarea-autosize'
 // Actions
 import * as CardActions from '../actions/CardActions'
 
-/**
- * Card
- */
+// TODO test??
 const cardTarget = {
   hover(props, monitor, component) {
 
@@ -30,6 +28,7 @@ const cardTarget = {
   }
 }
 
+// TODO test??
 const cardSource = {
   // canDrag(props) {
   //   // console.log('canDrag', arguments)
@@ -46,7 +45,9 @@ const cardSource = {
   }
 }
 
-
+/**
+ * Card
+ */
 export class Card extends Component {
   constructor(props) {
     super(props)
@@ -59,7 +60,6 @@ export class Card extends Component {
     this.deleteCard = this.deleteCard.bind(this)
   }
 
-  // TODO test
   /**
    * Edit text
    */
@@ -84,11 +84,11 @@ export class Card extends Component {
     this.setState({text: '', edit: false})
   }
 
+  // TODO test
   deleteCard(){
     const { dispatch } = this.props
     dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
   }
-  // TODO test
 
   render(){
     const { isDragging, connectDragSource, connectDropTarget, hovered } = this.props

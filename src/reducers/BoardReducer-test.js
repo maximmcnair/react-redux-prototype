@@ -2,6 +2,7 @@
 import test from 'tape'
 import BoardReducer from './BoardReducer'
 import * as CardTypes from '../actions/CardTypes'
+import * as ListTypes from '../actions/ListTypes'
 
 // Fixtures
 import boardFixture from '../__fixtures__/boardFixture'
@@ -116,7 +117,6 @@ test('BoardReducer handing MOVE_CARD', t => {
 })
 
 test('BoardReducer handing DELETE_CARD', t => {
-  // console.log(boardFixture.lists[1].cards.length - 1)
   // remove `Team permisson scoping` card
   let state = BoardReducer(boardFixture, {
     type: CardTypes.DELETE_CARD
@@ -139,5 +139,24 @@ test('BoardReducer handing DELETE_CARD', t => {
   // NOTE this will break if list sorting is added
 
   // TODO update card positions
+  t.end()
+})
+
+
+test('BoardReducer handing NEW_LIST', t => {
+  let state = BoardReducer(boardFixture, {
+    type: ListTypes.NEW_LIST
+  , title: 'kanban board'
+  , id: '2'
+  })
+
+  // Find list
+  let correctList = state.lists.find(list => {
+    return list._id === '2'
+  })
+
+  // Check list has been added
+  t.equal(correctList.title, 'kanban board', 'should add new board')
+
   t.end()
 })

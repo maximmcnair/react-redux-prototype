@@ -9,11 +9,13 @@
     "start": "node devServer.js",
     "lint": "eslint src",
     "test": "NODE_ENV=testing babel-node src/test.js | faucet",
-    "test:debug": "NODE_ENV=testing babel-node src/test.js"
+    "test:debug": "NODE_ENV=testing babel-node src/test.js",
+    "test:cover": "NODE_ENV=testing ./node_modules/.bin/babel-istanbul cover src/test.js"
   },
   "devDependencies": {
     "babel-core": "^6.3.15",
     "babel-eslint": "^5.0.0-beta4",
+    "babel-istanbul": "^0.6.0",
     "babel-loader": "^6.2.0",
     "babel-plugin-rewire": "1.0.0-beta-5",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",

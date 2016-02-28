@@ -1,9 +1,5 @@
-// TODO test
 export default {
-  hover(props, monitor, component) {
-
-  }
-, drop(props, monitor, component) {
+  drop(props, monitor, component) {
     const dragItem = monitor.getItem()
     const hoverItem = props.card
 

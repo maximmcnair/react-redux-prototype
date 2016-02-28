@@ -11,3 +11,7 @@ require('./actions/ListActions-test')
 
 // Reducers
 require('./reducers/BoardReducer-test')
+
+// dnd
+require('./dnd/cardSource-test')
+require('./dnd/cardTarget-test')

@@ -1,4 +1,3 @@
-// TODO test
 export default {
   // canDrag(props) {
   //   // console.log('canDrag', arguments)

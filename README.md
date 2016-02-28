@@ -22,4 +22,4 @@ npm run test
 ```bash
 npm run test:cover
 ```
-**note: instanbul will create an html coverage report in the coverage/lcov-report folder** 
+**note: instanbul will create an html coverage report in the coverage/lcov-report folder**

@@ -47,8 +47,15 @@ class Board extends React.Component {
     dispatch(CardActions.moveCard(dragItem, hoverItem))
   }
 
+  updateWidth(listsLength){
+    let listWidth = 272
+    return (listsLength + 1) * listWidth
+  }
+
   render() {
     const { board } = this.props
+
+    let style = {width: this.updateWidth(board.lists.length) + 'px' }
 
     return (
       <section className="board">
@@ -57,31 +64,33 @@ class Board extends React.Component {
           <h3 className="board-header-client">{board.client}</h3>
         </header>
         <div className="board-lists">
-          {board.lists.map((list, i) => {
-            return (
-              <List
-              list={list}
-              key={list._id}
-              moveCard={this.moveCard}
-              />
-            )
-          })}
-          <div className="list-new">
-            {this.state.create ? (
-              <header className="list-header">
-                <textarea
-                  className="list-title-textarea"
-                  onKeyPress={this.newListKeydown}
-                  onChange={this.onNewListChange}
-                  value={this.state.title}
-                  placeholder="Add name"
+          <div className="board-lists-scroll" style={style}>
+            {board.lists.map((list, i) => {
+              return (
+                <List
+                list={list}
+                key={list._id}
+                moveCard={this.moveCard}
                 />
-              </header>
-            ) : (
-              <div className="list-btn">
-                <span className="btn btn-sm" onClick={this.showNewList}>Create list</span>
-              </div>
-            ) }
+              )
+            })}
+            <div className="list-new">
+              {this.state.create ? (
+                <header className="list-header">
+                  <textarea
+                    className="list-title-textarea"
+                    onKeyPress={this.newListKeydown}
+                    onChange={this.onNewListChange}
+                    value={this.state.title}
+                    placeholder="Add name"
+                  />
+                </header>
+              ) : (
+                <div className="list-btn">
+                  <span className="btn btn-sm" onClick={this.showNewList}>Create list</span>
+                </div>
+              ) }
+            </div>
           </div>
         </div>
       </section>
@@ -101,3 +110,4 @@ function select(state) {
 }
 
 export default connect(select)(DragDropContext(HTML5Backend)(Board))
+export let undecorated = Board

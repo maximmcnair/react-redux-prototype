@@ -62,3 +62,12 @@ test('Board container rendering', (t) => {
 
   t.end()
 })
+
+import {undecorated} from './Board'
+
+test('board.updateWidth()', t => {
+  t.equal(undecorated.prototype.updateWidth(0), 272, 'should return correct width')
+  t.equal(undecorated.prototype.updateWidth(2), 816, 'should return correct width')
+
+  t.end()
+})

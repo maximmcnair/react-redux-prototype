@@ -35,6 +35,10 @@ body{
   background: $color-white;
   padding: 28px;
   border-bottom: 1px solid $color-border;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
 }
 .board-header-title{
   margin: 0px 0px 3px 0px;
@@ -49,7 +53,9 @@ body{
   font-weight: 400;
 }
 .board-lists{
-  padding: 28px
+  padding: 28px;
+  margin-top: 100px;
+  overflow-x: scroll;
 }
 
 /**
@@ -63,6 +69,7 @@ body{
   display: inline-block;
   vertical-align: top;
   height: 587px;
+  position: relative;
 }
 
 .list-new{
@@ -78,6 +85,10 @@ body{
   height: 57px;
   border-bottom: 1px solid $color-border;
   overflow: hidden;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  z-index: 9;
 }
 
 .list-title{
@@ -106,6 +117,9 @@ body{
 
 .list-cards{
   padding: 12px 20px;
+  margin-top: 56px;
+  height: 529px;
+  overflow: scroll;
 }
 
 .list-btn{

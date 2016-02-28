@@ -20,7 +20,8 @@ const BoardReducer = (state = {}, action) => {
         return list._id === action.list
       })
       // push new card
-      list1.cards.push({text: action.text, list: action.list, _id: action.id})
+      console.log('length', list1.cards.length)
+      list1.cards.push({text: action.text, list: action.list, _id: action.id, position: list1.cards.length})
       break
 
     case CardTypes.UPDATE_CARD:

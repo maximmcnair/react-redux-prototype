@@ -13,7 +13,7 @@ import * as CardActions from '../actions/CardActions'
 /**
  * List
  */
-class List extends Component {
+export class List extends Component {
   constructor(props) {
     super(props)
     this.state = {create: false, text: ''}
@@ -106,5 +106,3 @@ function select(state) {
 }
 
 export default connect(select)(List)
-
-export let undecorated = Card

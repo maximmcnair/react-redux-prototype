@@ -19,6 +19,7 @@ test('BoardReducer handling NEW_CARD', t => {
     { text: 'make pancakes'
     , list: '1'
     , _id: '5'
+    , position: 4 // this should be added
     }
 
   let state = BoardReducer(boardFixture, {

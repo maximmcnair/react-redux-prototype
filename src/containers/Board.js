@@ -51,7 +51,8 @@ class Board extends React.Component {
 
   updateWidth(listsLength){
     let listWidth = 272
-    return (listsLength + 1) * listWidth
+      , paddingRight = 28
+    return (listsLength + 1) * listWidth + paddingRight
   }
 
   render() {

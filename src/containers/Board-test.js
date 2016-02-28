@@ -45,10 +45,10 @@ test('Board container rendering', (t) => {
   )
   // test if title is rendered
   let actualTitleInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'board-header-title').innerHTML
-  t.equal(actualTitleInnerHtml, 'Fresh8 Admin', 'it should render board title')
+  t.equal(actualTitleInnerHtml, 'Example project board', 'it should render board title')
   // Test if client is rendered
   let actualClientInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'board-header-client').innerHTML
-  t.equal(actualClientInnerHtml, 'Connected Ventures', 'it should render board client')
+  t.equal(actualClientInnerHtml, 'Client name', 'it should render board client')
 
   // Find board-lists element
   let boardListsInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'board-lists').innerHTML
@@ -66,8 +66,8 @@ test('Board container rendering', (t) => {
 import {undecorated} from './Board'
 
 test('board.updateWidth()', t => {
-  t.equal(undecorated.prototype.updateWidth(0), 272, 'should return correct width')
-  t.equal(undecorated.prototype.updateWidth(2), 816, 'should return correct width')
+  t.equal(undecorated.prototype.updateWidth(0), 300, 'should return correct width')
+  t.equal(undecorated.prototype.updateWidth(2), 844, 'should return correct width')
 
   t.end()
 })

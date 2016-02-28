@@ -1,6 +1,6 @@
 export default {
-   title: 'Fresh8 Admin'
-, client: 'Connected Ventures'
+   title: 'Example project board'
+, client: 'Client name'
 , lists:
   [ { title: 'Backlog'
     , _id: '0'

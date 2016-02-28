@@ -56,6 +56,7 @@ class Card extends Component {
     this.cardTextKeydown = this.cardTextKeydown.bind(this)
     this.onCardTextChange = this.onCardTextChange.bind(this)
     this.saveCardText = this.saveCardText.bind(this)
+    this.deleteCard = this.deleteCard.bind(this)
   }
 
   // TODO test
@@ -82,6 +83,11 @@ class Card extends Component {
     dispatch(CardActions.updateCard(this.props.card._id, this.props.card.list, this.state.text))
     this.setState({text: '', edit: false})
   }
+
+  deleteCard(){
+    const { dispatch } = this.props
+    dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
+  }
   // TODO test
 
   render(){
@@ -102,6 +108,7 @@ class Card extends Component {
               autoFocus={true}
             />
             <a className="btn btn-sm card-save" onClick={this.saveCardText}>Save</a>
+            <i className="fa fa-trash card-delete" onClick={this.deleteCard}></i>
           </div>
         ):(
           <span className="card-text" onDoubleClick={this.showEditableText}>{this.props.card.text}</span>

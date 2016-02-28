@@ -42,7 +42,9 @@ test('CardActions.moveCard()', (t) => {
 
 test('CardActions.deleteCard()', (t) => {
   const id = '012'
-  t.equal(CardActions.deleteCard(id).type, CardTypes.DELETE_CARD, 'should have type DELETE_CARD')
-  t.equal(CardActions.deleteCard(id).id, id, 'should have correct id')
+  const list = '012'
+  t.equal(CardActions.deleteCard(id, list).type, CardTypes.DELETE_CARD, 'should have type DELETE_CARD')
+  t.equal(CardActions.deleteCard(id, list).id, id, 'should have correct id')
+  t.equal(CardActions.deleteCard(id, list).id, list, 'should have correct list')
   t.end()
 })

@@ -10,6 +10,7 @@ $color-bg: #F5F8F9;
 $color-bg-mid: #F2F7F9;
 $color-title: #506067;
 $color-subtitle: #A4B7C0;
+$color-text: #45474D;
 
 /**
  * Structure
@@ -26,6 +27,10 @@ body{
 *:before,
 *:after{
   box-sizing: inherit
+}
+
+textarea {
+  resize: none;
 }
 
 /**
@@ -100,7 +105,7 @@ body{
 }
 
 .list-title{
-  color: #45474D;
+  color: $color-text;
   font-size: 14px;
   text-align: center;
   margin: 0px;
@@ -112,7 +117,7 @@ body{
   border: none;
   width: 100%;
   text-align: center;
-  color: #45474D;
+  color: $color-text;
   font-size: 14px;
   font-weight: 600;
   padding-top: 20px;
@@ -140,7 +145,7 @@ body{
  */
 .card{
   background-color: #ffffff;
-  color: #45474D;
+  color: $color-text;
   font-size: 13px;
   border: 1px solid #CFD6E7;
   margin-bottom: 12px;
@@ -186,6 +191,18 @@ body{
   margin: 0px 10px 10px 10px;
 }
 
+.card-delete{
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  color: #7A859B;
+  @include transition(all .1s ease-in-out);
+}
+
+.card-delete:hover{
+  color: $color-text;
+}
+
 /**
  * Button
  */
@@ -199,7 +216,7 @@ body{
 }
 
 .btn:hover{
-  background: #226FCB;
+  background: $color-text;
   color: $color-white;
 }
 

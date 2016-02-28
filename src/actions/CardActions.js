@@ -31,9 +31,10 @@ export function moveCard(original, target){
   }
 }
 
-export function deleteCard(id){
+export function deleteCard(id, list){
   return {
     type: CardTypes.DELETE_CARD
   , id
+  , list
   }
 }

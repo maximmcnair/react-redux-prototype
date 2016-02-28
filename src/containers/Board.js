@@ -98,6 +98,7 @@ class Board extends React.Component {
                     onChange={this.onNewListChange}
                     value={this.state.title}
                     placeholder="Add name"
+                    autoFocus={true}
                   />
                 </header>
               ) : (

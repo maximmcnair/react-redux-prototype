@@ -9,41 +9,9 @@ import Textarea from 'react-textarea-autosize'
 // Actions
 import * as CardActions from '../actions/CardActions'
 
-// TODO test??
-const cardTarget = {
-  hover(props, monitor, component) {
-
-  }
-, drop(props, monitor, component) {
-    const dragItem = monitor.getItem()
-    const hoverItem = props.card
-
-    // Don't replace items with themselves
-    if (dragItem._id === hoverItem._id) {
-      return
-    }
-
-    // Time to actually perform the action
-    props.moveCard(dragItem, hoverItem)
-  }
-}
-
-// TODO test??
-const cardSource = {
-  // canDrag(props) {
-  //   // console.log('canDrag', arguments)
-  //   return true
-  // },
-
-  beginDrag(props) {
-    return {
-      _id: props.card._id
-    , position: props.card.position
-    , index: props.index
-    , list: props.card.list
-    }
-  }
-}
+// DnD
+import cardTarget from '../dnd/cardTarget'
+import cardSource from '../dnd/cardSource'
 
 /**
  * Card

@@ -47,7 +47,7 @@ const cardSource = {
 }
 
 
-class Card extends Component {
+export class Card extends Component {
   constructor(props) {
     super(props)
     this.state = {text: '', edit: false}
@@ -99,7 +99,7 @@ class Card extends Component {
     return connectDragSource(connectDropTarget(
       <div className={ hovered ? 'card card-hover' : 'card'} style={styles}>
         {this.state.edit ? (
-          <div>
+            <div>
             <Textarea
               className="card-textarea"
               onKeyPress={this.cardTextKeydown}

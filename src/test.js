@@ -7,6 +7,7 @@ require('./containers/Board-test')
 
 // Actions
 require('./actions/CardActions-test')
+require('./actions/ListActions-test')
 
 // Reducers
 require('./reducers/BoardReducer-test')

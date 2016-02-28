@@ -1,0 +1,16 @@
+/**
+ * Structure
+ */
+body{
+  background: $color-bg;
+  font-family: "Circular";
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after{
+  box-sizing: inherit
+}

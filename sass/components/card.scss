@@ -1,0 +1,62 @@
+/**
+ * Card
+ */
+.card{
+  background-color: #ffffff;
+  color: $color-text;
+  font-size: 13px;
+  border: 1px solid #CFD6E7;
+  margin-bottom: 12px;
+  box-shadow: 1px 1px 2px rgba(#7A859B, .17);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.card-hover{
+  margin-top: 74px;
+}
+
+.card-hover::before{
+  height: 50px;
+  left: 0px;
+  top: -63px;
+  display: block;
+  content: ' ';
+  border: 1px dashed #CFD6E7;
+  right: 0px;
+  position: absolute;
+}
+
+.card-textarea{
+  padding: 10px;
+  display: block;
+  border: none;
+  width: 100%;
+}
+
+.card-textarea:focus{
+  outline: none;
+}
+
+.card-text{
+  padding: 10px;
+  display: block;
+}
+
+.card-save{
+  display: inline-block;
+  margin: 0px 10px 10px 10px;
+}
+
+.card-delete{
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  color: #7A859B;
+  @include transition(all .1s ease-in-out);
+}
+
+.card-delete:hover{
+  color: $color-text;
+}

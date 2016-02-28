@@ -1,0 +1,22 @@
+/**
+ * Button
+ */
+.btn{
+  background: #CFD6E7;
+  color: #7A859B;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  @include transition(all .1s ease-in-out);
+}
+
+.btn:hover{
+  background: $color-text;
+  color: $color-white;
+}
+
+.btn-sm{
+  font-size: 12px;
+  border-radius: 17px;
+  padding: 5px 13px;
+}

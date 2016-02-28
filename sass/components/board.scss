@@ -1,0 +1,29 @@
+/**
+ * Board
+ */
+.board-header{
+  background: $color-white;
+  padding: 28px;
+  border-bottom: 1px solid $color-border;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.board-header-title{
+  margin: 0px 0px 3px 0px;
+  font-size: 18px;
+  color: $color-title;
+  font-weight: 400;
+}
+.board-header-client{
+  margin: 0px;
+  font-size: 14px;
+  color: $color-subtitle;
+  font-weight: 400;
+}
+.board-lists{
+  padding: 28px;
+  margin-top: 100px;
+  overflow-x: scroll;
+}

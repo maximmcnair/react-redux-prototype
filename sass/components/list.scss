@@ -1,0 +1,76 @@
+/**
+ * List
+ */
+.list{
+  background: $color-bg-mid;
+  border: 1px solid $color-border;
+  border-right-width: 0px;
+  width: 272px;
+  display: inline-block;
+  vertical-align: top;
+  height: 587px;
+  position: relative;
+}
+
+.list-new{
+  width: 272px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid $color-border;
+  height: 587px;
+  position: relative;
+}
+
+.list-header{
+  background: $color-white;
+  height: 57px;
+  border-bottom: 1px solid $color-border;
+  overflow: hidden;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  z-index: 9;
+}
+
+.list-header-save{
+  position: absolute;
+  right: 10px;
+  z-index: 10;
+  top: 17px;
+}
+
+.list-title{
+  color: $color-text;
+  font-size: 14px;
+  text-align: center;
+  margin: 0px;
+  padding-top: 20px;
+}
+
+.list-title-textarea{
+  display: block;
+  border: none;
+  width: 100%;
+  text-align: center;
+  color: $color-text;
+  font-size: 14px;
+  font-weight: 600;
+  padding-top: 20px;
+  height: 56px;
+}
+
+.list-title-textarea:focus{
+  outline: none;
+}
+
+.list-cards{
+  padding: 12px 20px;
+  margin-top: 56px;
+  height: 529px;
+  overflow: scroll;
+}
+
+.list-btn{
+  text-align: center;
+  margin-top: 20px;
+}

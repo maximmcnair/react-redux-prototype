@@ -84,7 +84,6 @@ export class Card extends Component {
     this.setState({text: '', edit: false})
   }
 
-  // TODO test
   deleteCard(){
     const { dispatch } = this.props
     dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))

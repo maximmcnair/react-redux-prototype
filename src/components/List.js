@@ -60,14 +60,13 @@ export class List extends Component {
         />
       )
     }.bind(this))
-
     // let's render!
     return (
-      <div className="list">
+      <div className="list" style={{height: this.props.height + 'px'}}>
         <header className="list-header">
           <h3 className="list-title">{this.props.list.title}</h3>
         </header>
-        <div className="list-cards">
+        <div className="list-cards" style={{height: (this.props.height  - 57) + 'px'}}>
           {cardNodes}
           {this.state.create ? (
             <div className="card">
@@ -95,8 +94,10 @@ export class List extends Component {
 
 List.propTypes =
   { title: PropTypes.string
+  , height: PropTypes.number
   , _id: PropTypes.string
   , cards: PropTypes.array
+  , dispatch: PropTypes.func
   , moveCard: PropTypes.func
   , list: PropTypes.object
   }

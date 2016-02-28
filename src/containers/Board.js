@@ -24,6 +24,7 @@ class Board extends React.Component {
     this.newListKeydown = this.newListKeydown.bind(this)
   }
 
+  // TODO test
   onNewListChange(e){
     this.setState({title: e.currentTarget.value})
   }
@@ -46,6 +47,7 @@ class Board extends React.Component {
     const { dispatch } = this.props
     dispatch(CardActions.moveCard(dragItem, hoverItem))
   }
+  // TODO test
 
   updateWidth(listsLength){
     let listWidth = 272
@@ -55,7 +57,19 @@ class Board extends React.Component {
   render() {
     const { board } = this.props
 
-    let style = {width: this.updateWidth(board.lists.length) + 'px' }
+    let boardListScrollStyle = {width: this.updateWidth(board.lists.length) + 'px' }
+
+    // TODO test
+    var body = document.body
+      , html = document.documentElement
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+                           html.clientHeight, html.scrollHeight,
+                           html.offsetHeight )
+
+    var boardListWrapperStyle = {height: height - 100 + 'px', background: 'red'}
+      , boardListStyle = {height: height - 100 - (28 * 2) + 'px'}
+    // TODO test
 
     return (
       <section className="board">
@@ -63,18 +77,19 @@ class Board extends React.Component {
           <h2 className="board-header-title">{board.title}</h2>
           <h3 className="board-header-client">{board.client}</h3>
         </header>
-        <div className="board-lists">
-          <div className="board-lists-scroll" style={style}>
+        <div className="board-lists" height={boardListWrapperStyle}>
+          <div className="board-lists-scroll" style={boardListScrollStyle}>
             {board.lists.map((list, i) => {
               return (
                 <List
-                list={list}
-                key={list._id}
-                moveCard={this.moveCard}
+                  list={list}
+                  key={list._id}
+                  moveCard={this.moveCard}
+                  height={height - 100 - (28 * 2)}
                 />
               )
             })}
-            <div className="list-new">
+            <div className="list-new" style={boardListStyle}>
               {this.state.create ? (
                 <header className="list-header">
                   <textarea

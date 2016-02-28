@@ -98,7 +98,7 @@ export class Card extends Component {
     return connectDragSource(connectDropTarget(
       <div className={ hovered ? 'card card-hover' : 'card'} style={styles}>
         {this.state.edit ? (
-            <div>
+          <div>
             <Textarea
               className="card-textarea"
               onKeyPress={this.cardTextKeydown}

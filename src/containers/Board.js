@@ -22,6 +22,7 @@ class Board extends React.Component {
     this.showNewList = this.showNewList.bind(this)
     this.onNewListChange = this.onNewListChange.bind(this)
     this.newListKeydown = this.newListKeydown.bind(this)
+    this.createNewList = this.createNewList.bind(this)
   }
 
   // TODO test
@@ -35,12 +36,16 @@ class Board extends React.Component {
 
   newListKeydown(event){
     if(event.charCode == 13){
-      const { dispatch } = this.props
       event.preventDefault()
-      let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
-      dispatch(ListActions.newList(this.state.title, randomNum))
-      this.setState({title: '', create: false})
+      this.createNewList()
     }
+  }
+
+  createNewList(){
+    const { dispatch } = this.props
+    let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
+    dispatch(ListActions.newList(this.state.title, randomNum))
+    this.setState({title: '', create: false})
   }
 
   moveCard(dragItem, hoverItem){
@@ -101,6 +106,7 @@ class Board extends React.Component {
                     placeholder="Add name"
                     autoFocus={true}
                   />
+                  <a className="btn btn-sm list-header-save" onClick={this.createNewList}>Save</a>
                 </header>
               ) : (
                 <div className="list-btn">

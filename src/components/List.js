@@ -20,6 +20,7 @@ export class List extends Component {
     this.newCardKeydown = this.newCardKeydown.bind(this)
     this.onNewCardChange = this.onNewCardChange.bind(this)
     this.showNewCard = this.showNewCard.bind(this)
+    this.createNewCard = this.createNewCard.bind(this)
   }
 
   sortByPosition(cards){
@@ -28,7 +29,7 @@ export class List extends Component {
       return a.position - b.position
     }, cards)
   }
-
+  // TODO test
   onNewCardChange(e){
     this.setState({text: e.currentTarget.value})
   }
@@ -39,13 +40,18 @@ export class List extends Component {
 
   newCardKeydown(event){
     if(event.charCode == 13){
-      const { dispatch } = this.props
       event.preventDefault()
-      let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
-      dispatch(CardActions.newCard(this.state.text, this.props.list._id, randomNum))
-      this.setState({text: '', create: false})
+      this.createNewCard()
     }
   }
+
+  createNewCard(){
+    const { dispatch } = this.props
+    let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
+    dispatch(CardActions.newCard(this.state.text, this.props.list._id, randomNum))
+    this.setState({text: '', create: false})
+  }
+  // TODO test
 
   render() {
     // create nodes from sorted cards
@@ -77,6 +83,7 @@ export class List extends Component {
                 value={this.state.text}
                 autoFocus={true}
               />
+              <a className="btn btn-sm card-save" onClick={this.createNewCard}>Save</a>
             </div>
           ) : (
             <div className="list-btn">

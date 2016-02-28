@@ -55,7 +55,6 @@ class Card extends Component {
     return connectDragSource(connectDropTarget(
       <div className={ hovered ? 'card card-hover' : 'card'} style={styles}>
         <span className="card-text">{this.props.card.text}</span>
-        -{this.props.card._id}-{this.props.card.position}
       </div>
     ))
   }

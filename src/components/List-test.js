@@ -191,3 +191,107 @@ test('createNewCard()', t => {
 
   t.end()
 })
+
+test('showEditableTitle()', t => {
+  // shallow render card
+  const tree = sd.shallowRender(<List list={listFixture} />)
+  const instance = tree.getMountedInstance()
+  // const vdom = tree.getRenderOutput()
+
+  // state.edit should start as false
+  t.equal(instance.state.edit, false, 'state.edit start be false')
+
+  // call `showEditableTitle`
+  instance.showEditableTitle()
+
+  // state.edit should be true
+  t.equal(instance.state.edit, true, 'state.edit should be true')
+  t.equal(instance.state.title, 'Backlog', 'state.edit should be props.list.title')
+
+  t.end()
+})
+
+test('listTitleKeydown()', t => {
+  // shallow render card
+  const tree = sd.shallowRender(<List list={listFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // stub `.saveListTitle()`
+  var stubSaveListTitle = sinon.stub(instance, 'saveListTitle', function(){})
+
+  // create fake invalid event
+  let invalidEvent = {charCode: 0}
+
+  // call `listTitleKeydown`
+  instance.listTitleKeydown(invalidEvent)
+
+  // should not call `.saveListTitle()`
+  t.equal(stubSaveListTitle.callCount, 0,  'should not call .saveListTitle() if e.charCode is not 13')
+
+  // create a valid event
+  let validEvent = {charCode: 13, preventDefault: sinon.spy()}
+
+  // call `listTitleKeydown`
+  instance.listTitleKeydown(validEvent)
+
+  // should call `event.preventDefault()`
+  t.equal(validEvent.preventDefault.callCount, 1, 'should call .preventDefault() if e.charCode is 13')
+
+  // should call `.saveListTitle()`
+  t.equal(stubSaveListTitle.callCount, 1,  'should call .saveListTitle() if e.charCode is 13')
+
+  // restore .saveListTitle
+  instance.saveListTitle.restore()
+
+  t.end()
+})
+
+test('onListTitleChange()', t => {
+  // shallow render card
+  const tree = sd.shallowRender(<List list={listFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // create a fake event
+  let fakeEvent = {currentTarget: {value: 'testing 1 2 3'}}
+
+  t.equal(instance.state.title, '', 'state.title should start as an empty string')
+
+  // call `onListTitleChange`
+  instance.onListTitleChange(fakeEvent)
+
+  t.equal(instance.state.title, 'testing 1 2 3', 'should set .title to event value')
+
+  t.end()
+})
+
+test('saveListTitle()', t => {
+  // stub dispatch
+  let stubbedDispatch = sinon.spy()
+
+  // shallow render card
+  const tree = sd.shallowRender(
+    <List
+      list={listFixture}
+      dispatch={stubbedDispatch}
+    />
+  )
+  const instance = tree.getMountedInstance()
+
+  // set state to have test and edit as true
+  // mocking how they would be if someone was using it
+  instance.setState({title: 'some example text', edit: true})
+
+  // call `.saveListTitle`
+  instance.saveListTitle()
+
+  t.equal(stubbedDispatch.callCount, 1, 'should call dispatch')
+
+  let expectedArgs = { type: 'UPDATE_LIST', title: 'some example text', id: '1324' }
+  t.looseEqual(stubbedDispatch.args[0][0], expectedArgs, 'should call dispatch with correct args')
+
+  t.equal(instance.state.title, '', 'should set state.title to empty string')
+  t.equal(instance.state.edit, false, 'should set state.edit to false')
+
+  t.end()
+
+})

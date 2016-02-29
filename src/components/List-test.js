@@ -6,7 +6,7 @@ import sd from 'skin-deep'
 import sinon from 'sinon'
 
 // Components
-import {List} from './List'
+import {List, select} from './List'
 
 /* eslint-disable babel/object-shorthand */
 // NOTE bable doesn't work in rewire
@@ -294,4 +294,10 @@ test('saveListTitle()', t => {
 
   t.end()
 
+})
+
+test('select()', t => {
+  let state = {board: {}}
+  t.looseEqual(select(state), {}, 'should return empty object')
+  t.end()
 })

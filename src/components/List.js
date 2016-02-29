@@ -161,7 +161,7 @@ List.propTypes =
   , list: PropTypes.object
   }
 
-function select(state) {
+export function select(state) {
   return {}
 }
 

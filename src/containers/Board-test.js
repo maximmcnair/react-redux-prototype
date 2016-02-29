@@ -6,7 +6,7 @@ import sd from 'skin-deep'
 import sinon from 'sinon'
 
 // Components
-import { select, Board, __RewireAPI__ as BoardRewireAPI } from './Board.js'
+import {Board, __RewireAPI__ as BoardRewireAPI, select } from './Board.js'
 
 /* eslint-disable babel/object-shorthand */
 // NOTE bable doesn't work in rewire
@@ -44,7 +44,7 @@ test('Board container render', t => {
   // Find board-lists element
   let boardListsInnerHtml = tree.subTree('.board-lists').toString()
   // List component has been mocked by a mock component that renders `**test**`
-  const amountOfTestStringsRendered = (boardListsInnerHtml.match(/test/g) || []).length
+  const amountOfTestStringsRendered = boardListsInnerHtml.match(/test/g).length
   t.equal(amountOfTestStringsRendered, 2, 'it should render board lists')
 
   t.end()

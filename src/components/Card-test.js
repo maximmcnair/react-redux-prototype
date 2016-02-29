@@ -8,7 +8,7 @@ import sd from 'skin-deep'
 import sinon from 'sinon'
 
 // Component
-import {Card} from './Card'
+import { Card, select } from './Card'
 
 /**
  * Card component tests
@@ -186,5 +186,41 @@ test('deleteCard()', t => {
   let expectedArgs = { type: 'DELETE_CARD', id: '13', list: '1234'}
   t.looseEqual(stubbedDispatch.args[0][0], expectedArgs, 'should call dispatch with correct args')
 
+  t.end()
+})
+
+test('generateCardClass()', t => {
+  const cardFixture = {text: 'Example'}
+
+  // Stub the React DnD connector functions with an identity function
+  var identity = function (el) { return el; }
+
+  const tree = sd.shallowRender(
+    <Card
+      connectDragSource={identity}
+      connectDropTarget={identity}
+      card={cardFixture}
+      hovered={false}
+    />
+  )
+  const instance = tree.getMountedInstance()
+  t.equal(instance.generateCardClass(), 'card', 'should return opacity as 0 if props.hovered is false')
+
+  tree.reRender(
+    <Card
+      connectDragSource={identity}
+      connectDropTarget={identity}
+      card={cardFixture}
+      hovered={true}
+    />
+  )
+  t.equal(instance.generateCardClass(), 'card card-hover', 'should return opacity as 1 if props.hovered is true')
+
+  t.end()
+})
+
+test('select()', t => {
+  let state = {board: {}}
+  t.looseEqual(select(state), {}, 'should return empty object')
   t.end()
 })

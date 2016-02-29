@@ -57,17 +57,24 @@ export class Card extends Component {
     dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
   }
 
+  generateCardClass(){
+    if(this.props.hovered){
+      return 'card card-hover'
+    }else{
+      return 'card'
+    }
+  }
+
   /**
    * Render
    */
   render(){
-    const { isDragging, connectDragSource, connectDropTarget, hovered } = this.props
-    const styles = {
-      opacity: isDragging ? 0 : 1
-    }
+    const { connectDragSource, connectDropTarget } = this.props
+
+    let cardClass = this.generateCardClass()
 
     return connectDragSource(connectDropTarget(
-      <div className={ hovered ? 'card card-hover' : 'card'} style={styles}>
+      <div className={cardClass}>
         {this.state.edit ? (
           <div>
             <Textarea
@@ -97,10 +104,11 @@ Card.propTypes =
   , hovered: PropTypes.bool
   }
 
-function select(state) {
+export function select(state) {
   return {}
 }
 
+/* istanbul ignore next: base method */
 export default pipe(
   connect(select)
 , DropTarget(ItemTypes.CARD, cardTarget, (connect, monitor) => ({

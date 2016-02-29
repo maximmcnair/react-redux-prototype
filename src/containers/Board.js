@@ -14,36 +14,26 @@ import * as ListActions from '../actions/ListActions'
 /**
  * Board Component
  */
-class Board extends React.Component {
+export class Board extends React.Component {
   constructor(props) {
     super(props)
     this.state = {create: false, title: ''}
-    this.moveCard = this.moveCard.bind(this)
+
     this.showNewList = this.showNewList.bind(this)
     this.onNewListChange = this.onNewListChange.bind(this)
-    this.newListKeydown = this.newListKeydown.bind(this)
     this.createNewList = this.createNewList.bind(this)
+    this.newListKeydown = this.newListKeydown.bind(this)
+    this.moveCard = this.moveCard.bind(this)
   }
 
-  // TODO test
   onNewListChange(e){
     this.setState({title: e.currentTarget.value})
   }
 
-  // TODO test
   showNewList(){
     this.setState({create: true})
   }
 
-  // TODO test
-  newListKeydown(event){
-    if(event.charCode == 13){
-      event.preventDefault()
-      this.createNewList()
-    }
-  }
-
-  // TODO test
   createNewList(){
     const { dispatch } = this.props
     let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
@@ -51,7 +41,13 @@ class Board extends React.Component {
     this.setState({title: '', create: false})
   }
 
-  // TODO test
+  newListKeydown(event){
+    if(event.charCode == 13){
+      event.preventDefault()
+      this.createNewList()
+    }
+  }
+
   moveCard(dragItem, hoverItem){
     const { dispatch } = this.props
     dispatch(CardActions.moveCard(dragItem, hoverItem))
@@ -63,22 +59,27 @@ class Board extends React.Component {
     return (listsLength + 1) * listWidth + paddingRight
   }
 
+  // TODO test
+  getMaxHeight(){
+    var body = document.body
+      , html = document.documentElement
+
+    return Math.max(body.scrollHeight
+    , body.offsetHeight
+    , html.clientHeight
+    , html.scrollHeight
+    , html.offsetHeight
+    )
+  }
+
   render() {
     const { board } = this.props
 
     let boardListScrollStyle = {width: this.updateWidth(board.lists.length) + 'px' }
-
-    // TODO test
-    var body = document.body
-      , html = document.documentElement
-
-    var height = Math.max( body.scrollHeight, body.offsetHeight,
-                           html.clientHeight, html.scrollHeight,
-                           html.offsetHeight )
+    let height = this.getMaxHeight()
 
     var boardListWrapperStyle = {height: height - 100 + 'px', background: 'red'}
       , boardListStyle = {height: height - 100 - (28 * 2) + 'px'}
-    // TODO test
 
     return (
       <section className="board">
@@ -129,11 +130,10 @@ Board.propTypes =
   , dispatch: PropTypes.func
   }
 
-function select(state) {
+export function select(state) {
   return {
     board: state.board
   }
 }
 
 export default connect(select)(DragDropContext(HTML5Backend)(Board))
-export let undecorated = Board

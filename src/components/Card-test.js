@@ -1,17 +1,18 @@
 // Dependencies
 import test from 'tape'
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
 import sd from 'skin-deep'
-import ReactDOM from 'react-dom'
+// import ReactDOM from 'react-dom'
 // import TestUtils from 'react-addons-test-utils'
-import jsdom from 'jsdom'
+// import jsdom from 'jsdom'
 import sinon from 'sinon'
 
 // Component
 import {Card} from './Card'
 
-
+/**
+ * Card component tests
+ */
 test('card component', (t) => {
   const cardFixture = {text: 'Example'}
 

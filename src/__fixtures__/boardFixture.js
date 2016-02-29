@@ -1,5 +1,5 @@
 export default {
-   title: 'Example project board'
+  title: 'Example project board'
 , client: 'Client name'
 , lists:
   [ { title: 'Backlog'

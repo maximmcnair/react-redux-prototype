@@ -204,7 +204,7 @@ test('generateCardClass()', t => {
     />
   )
   const instance = tree.getMountedInstance()
-  t.equal(instance.generateCardClass(), 'card', 'should return opacity as 0 if props.hovered is false')
+  t.equal(instance.generateCardClass(), 'card', 'should return correct class if props.hovered is false')
 
   tree.reRender(
     <Card
@@ -214,7 +214,37 @@ test('generateCardClass()', t => {
       hovered={true}
     />
   )
-  t.equal(instance.generateCardClass(), 'card card-hover', 'should return opacity as 1 if props.hovered is true')
+  t.equal(instance.generateCardClass(), 'card card-hover', 'should return correct classes if props.hovered is true')
+
+  t.end()
+})
+
+test('generateCardStyle()', t => {
+  const cardFixture = {text: 'Example'}
+
+  // Stub the React DnD connector functions with an identity function
+  var identity = function (el) { return el; }
+
+  const tree = sd.shallowRender(
+    <Card
+      connectDragSource={identity}
+      connectDropTarget={identity}
+      card={cardFixture}
+      isDragging={false}
+    />
+  )
+  const instance = tree.getMountedInstance()
+  t.equal(instance.generateCardStyle(), {opacity: 1}, 'should return opacity as 1 if props.hovered is false')
+
+  tree.reRender(
+    <Card
+      connectDragSource={identity}
+      connectDropTarget={identity}
+      card={cardFixture}
+      hovered={true}
+    />
+  )
+  t.equal(instance.generateCardStyle(), {opacity: 0}, 'should return opacity as 0 if props.hovered is true')
 
   t.end()
 })

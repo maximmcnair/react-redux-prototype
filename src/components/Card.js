@@ -65,6 +65,14 @@ export class Card extends Component {
     }
   }
 
+  generateCardStyle(){
+    if(this.props.isDragging){
+      return {opacity: 0}
+    }else{
+      return {opacity: 1}
+    }
+  }
+
   /**
    * Render
    */
@@ -72,9 +80,10 @@ export class Card extends Component {
     const { connectDragSource, connectDropTarget } = this.props
 
     let cardClass = this.generateCardClass()
+    let cardStyle = this.generateCardStyle()
 
     return connectDragSource(connectDropTarget(
-      <div className={cardClass}>
+      <div className={cardClass} style={cardStyle}>
         {this.state.edit ? (
           <div>
             <Textarea

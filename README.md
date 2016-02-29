@@ -1,6 +1,6 @@
 # React Redux Kanban prototype
 
-![Gif of app](https://github.com/maximmcnair/react-redux-prototype/blob/master/example.gif)
+![Gif of App](https://github.com/maximmcnair/react-redux-prototype/blob/master/example.gif)
 
 ## Installation
 

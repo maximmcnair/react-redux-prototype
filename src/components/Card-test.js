@@ -234,17 +234,17 @@ test('generateCardStyle()', t => {
     />
   )
   const instance = tree.getMountedInstance()
-  t.equal(instance.generateCardStyle(), {opacity: 1}, 'should return opacity as 1 if props.hovered is false')
+  t.looseEqual(instance.generateCardStyle(), {opacity: 1}, 'should return opacity as 1 if props.hovered is false')
 
   tree.reRender(
     <Card
       connectDragSource={identity}
       connectDropTarget={identity}
       card={cardFixture}
-      hovered={true}
+      isDragging={true}
     />
   )
-  t.equal(instance.generateCardStyle(), {opacity: 0}, 'should return opacity as 0 if props.hovered is true')
+  t.looseEqual(instance.generateCardStyle(), {opacity: 0}, 'should return opacity as 0 if props.hovered is true')
 
   t.end()
 })

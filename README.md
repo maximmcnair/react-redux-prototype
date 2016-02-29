@@ -1,5 +1,7 @@
 # React Redux Kanban prototype
 
+[[https://github.com/maximmcnair/react-redux-prototype/blob/master/example.gif|alt=app example]]
+
 ## Installation
 
 ```bash

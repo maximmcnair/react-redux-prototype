@@ -1,0 +1,17 @@
+.tag{
+  font-size: 12px;
+  background: transparent;
+  color: #B2C2CA;
+  border-radius: 26px;
+  padding: 3px 8px 4px 8px;
+  margin-right: 8px;
+  cursor: pointer;
+  @include user-select(none);
+  @include transition(all .1s ease-in-out);
+}
+
+.tag-active,
+.tag:hover{
+  background: #B9C7CF;
+  color: #FFFFFF;
+}

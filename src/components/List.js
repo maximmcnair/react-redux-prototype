@@ -87,12 +87,27 @@ export class List extends Component {
     this.setState({title: '', edit: false})
   }
 
+  // TODO test
+  filterByTag(cards, tag){
+    if(tag == 'all tags'){
+      return cards
+    }else{
+      // filter cards
+      return cards.filter(card => {
+        return card.text.indexOf(tag) !== -1
+      })
+    }
+  }
+
   /**
    * Render
    */
   render() {
     // create nodes from sorted cards
-    const cardNodes = this.sortByPosition(this.props.list.cards).map(function(card, i){
+    let cards = this.filterByTag(this.props.list.cards, this.props.activeTag)
+    cards = this.sortByPosition(cards)
+
+    const cardNodes = cards.map(function(card, i){
       return (
         <Card
           card={card}

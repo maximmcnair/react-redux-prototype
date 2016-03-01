@@ -17,13 +17,15 @@ import * as ListActions from '../actions/ListActions'
 export class Board extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {create: false, title: ''}
+    // TODO test state.activeTag
+    this.state = {create: false, title: '', activeTag: 'all tags'}
 
     this.showNewList = this.showNewList.bind(this)
     this.onNewListChange = this.onNewListChange.bind(this)
     this.createNewList = this.createNewList.bind(this)
     this.newListKeydown = this.newListKeydown.bind(this)
     this.moveCard = this.moveCard.bind(this)
+    this.changeTag = this.changeTag.bind(this)
   }
 
   onNewListChange(e){
@@ -72,8 +74,36 @@ export class Board extends React.Component {
     )
   }
 
+  // TODO test
+  getTags(lists){
+    var hastagReg =/(\S*#\[[^\]]+\])|(\S*#\S+)/gi
+    var tags = []
+    lists.forEach(list => {
+      list.cards.forEach(card => {
+        let cardTags = card.text.match(hastagReg)
+        if(cardTags){
+          cardTags.forEach(tag => {
+            // Check tag isn't already in `tags`
+            if( tags.indexOf(tag) === -1 ){
+              tags.push(tag)
+            }
+          })
+        }
+      })
+    })
+    return tags
+  }
+
+  // TODO test
+  changeTag(tag){
+    this.setState({activeTag: tag})
+  }
+
   render() {
     const { board } = this.props
+
+    let tags = this.getTags(board.lists)
+    tags.unshift('all tags')
 
     let boardListScrollStyle = {width: this.updateWidth(board.lists.length) + 'px' }
     let height = this.getMaxHeight()
@@ -87,6 +117,19 @@ export class Board extends React.Component {
           <h2 className="board-header-title">{board.title}</h2>
           <h3 className="board-header-client">{board.client}</h3>
         </header>
+        <div className="board-tags">
+          {tags.map(tag => {
+            return (
+              <span
+                onClick={() => {
+                  this.changeTag(tag)
+                }}
+                className={this.state.activeTag == tag ? 'tag tag-active' : 'tag'}
+                key={tag}
+              >{tag}</span>
+            )
+          })}
+        </div>
         <div className="board-lists" height={boardListWrapperStyle}>
           <div className="board-lists-scroll" style={boardListScrollStyle}>
             {board.lists.map((list, i) => {
@@ -94,6 +137,7 @@ export class Board extends React.Component {
                 <List
                   list={list}
                   key={list._id}
+                  activeTag={this.state.activeTag}
                   moveCard={this.moveCard}
                   height={height - 100 - (28 * 2)}
                 />

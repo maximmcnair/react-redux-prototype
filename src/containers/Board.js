@@ -100,7 +100,6 @@ export class Board extends React.Component {
     )
   }
 
-  // TODO test
   checkSizes(){
     this.setState({
       height: this.getMaxHeight()

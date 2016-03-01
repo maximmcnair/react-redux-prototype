@@ -225,10 +225,23 @@ test('getMaxHeight()', t => {
   t.end()
 })
 
-// TODO test
 test('checkSizes()', t => {
-  'should call .getMaxHeight'
-  'should set state.height to what .getMaxHeight returns'
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // stub `.getMaxHeight()`
+  var stubGetMaxHeight = sinon.stub(instance, 'getMaxHeight', function(){return 140})
+
+  // call `.checkSizes()`
+  instance.checkSizes()
+
+  t.equal(stubGetMaxHeight.callCount, 1, 'should call .getMaxHeight')
+  t.equal(instance.state.height, 140, 'should set state.height to what .getMaxHeight returns')
+
+  // restore .getMaxHeight
+  instance.getMaxHeight.restore()
+
   t.end()
 })
 

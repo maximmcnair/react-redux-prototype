@@ -89,7 +89,7 @@ export class List extends Component {
 
   // TODO test
   filterByTag(cards, tag){
-    if(tag == 'all tags'){
+    if(tag === 'all tags'){
       return cards
     }else{
       // filter cards
@@ -170,6 +170,7 @@ List.propTypes =
   { title: PropTypes.string
   , height: PropTypes.number
   , _id: PropTypes.string
+  , activeTag: PropTypes.string
   , cards: PropTypes.array
   , dispatch: PropTypes.func
   , moveCard: PropTypes.func

@@ -87,7 +87,6 @@ export class List extends Component {
     this.setState({title: '', edit: false})
   }
 
-  // TODO test
   filterByTag(cards, tag){
     if(tag === 'all tags'){
       return cards

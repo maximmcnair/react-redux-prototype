@@ -293,7 +293,24 @@ test('saveListTitle()', t => {
   t.equal(instance.state.edit, false, 'should set state.edit to false')
 
   t.end()
+})
 
+// TODOs
+test('filterByTag()', t => {
+  const exampleCards =
+    [ { text: 'exmample copy #bugs'
+      }
+    , { text: '#design'
+      }
+    ]
+
+  // shallow render card
+  const tree = sd.shallowRender(<List list={listFixture} />)
+  const instance = tree.getMountedInstance()
+
+  t.equal(instance.filterByTag(exampleCards, '#bugs').length, 1, 'should filter out cards without correct tag')
+
+  t.end()
 })
 
 test('select()', t => {

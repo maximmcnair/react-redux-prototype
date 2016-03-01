@@ -65,20 +65,6 @@ export class Board extends React.Component {
     return (listsLength + 1) * listWidth + paddingRight
   }
 
-  // TODO test
-  getMaxHeight(){
-    var body = document.body
-      , html = document.documentElement
-
-    return Math.max(body.scrollHeight
-    , body.offsetHeight
-    , html.clientHeight
-    , html.scrollHeight
-    , html.offsetHeight
-    )
-  }
-
-  // TODO test
   getTags(lists){
     var hastagReg =/(\S*#\[[^\]]+\])|(\S*#\S+)/gi
     var tags = []
@@ -98,9 +84,20 @@ export class Board extends React.Component {
     return tags
   }
 
-  // TODO test
   changeTag(tag){
     this.setState({activeTag: tag})
+  }
+
+  getMaxHeight(){
+    var body = document.body
+      , html = document.documentElement
+
+    return Math.max(body.scrollHeight
+    , body.offsetHeight
+    , html.clientHeight
+    , html.scrollHeight
+    , html.offsetHeight
+    )
   }
 
   // TODO test
@@ -126,8 +123,6 @@ export class Board extends React.Component {
 
     let tags = this.getTags(board.lists)
     tags.unshift('all tags')
-
-    console.log( this.state.height )
 
     let boardListScrollStyle = {width: this.updateWidth(board.lists.length) + 'px' }
       , boardContentStyle = {height: this.state.height - 101 - 28 + 'px'}

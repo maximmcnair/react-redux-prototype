@@ -20,8 +20,8 @@ import boardFixture from '../__fixtures__/boardFixture'
 
 // fake document's body and html for Board component
 global.document =
-  { body: {scrollHeight: 100, offsetHeight: 100}
-  , documentElement: {clientHeight: 100, scrollHeight: 100, offsetHeight: 100}
+  { body: {scrollHeight: 120, offsetHeight: 100}
+  , documentElement: {clientHeight: 140, scrollHeight: 100, offsetHeight: 100}
   }
 
 /**
@@ -194,8 +194,57 @@ test('updateWidth()', t => {
   t.end()
 })
 
-// TODO
-test('getMaxHeight()')
+test('getTags()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+  t.looseEqual(instance.getTags(boardFixture.lists), ['#design', '#bugs'], 'should return aggregated tags')
+  t.end()
+})
+
+test('changeTag()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  t.equal(instance.state.activeTag, 'all tags', 'should be set to `all tags` by default')
+
+  // call .changeTag
+  instance.changeTag('#design')
+
+  t.equal(instance.state.activeTag, '#design', 'should set state.activeTag to #design')
+  t.end()
+})
+
+test('getMaxHeight()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  t.equal(instance.getMaxHeight(), 140, 'should returns document.clientHeight value (because it\s the highest)')
+  t.end()
+})
+
+// TODO test
+test('checkSizes()', t => {
+  'should call .getMaxHeight'
+  'should set state.height to what .getMaxHeight returns'
+  t.end()
+})
+
+// TODO test
+test('componentDidMount()', t => {
+  'should call .checkSizes'
+  'should add an event listener on resize'
+  'should call .checkSizes on resize event'
+  t.end()
+})
+
+// TODO test
+test('componentWillUnmount()', t => {
+  'should remove event listener on resize'
+  t.end()
+})
 
 // Find list button
 // let listBtnInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'btn').innerHTML

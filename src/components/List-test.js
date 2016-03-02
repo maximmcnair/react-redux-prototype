@@ -43,6 +43,7 @@ test('List component', (t) => {
   t.equal(tree.subTree('.list-title').text(), 'Backlog', 'should render list title')
 
   // Check it renders cards
+  // TODO this needs to be added in again, but Rewire breaks??
   // const amountOfTestStringsRendered = (tree.toString().match(/test/g) || []).length
   // t.equal(amountOfTestStringsRendered, 3, 'should render cards')
 

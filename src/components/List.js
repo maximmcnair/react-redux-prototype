@@ -11,6 +11,9 @@ import Card from './Card'
 import * as CardActions from '../actions/CardActions'
 import * as ListActions from '../actions/ListActions'
 
+// Sockets
+const socket = require('socket.io-client')('http://127.0.0.1:3100')
+
 /**
  * List
  */
@@ -60,6 +63,12 @@ export class List extends Component {
     // NOTE this generates a fake _id, this would be handled by a database
     let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
     dispatch(CardActions.newCard(this.state.text, this.props.list._id, randomNum))
+    // TODO test
+    socket.emit('NEW_CARD', {
+      text: this.state.text
+    , list: this.props.list._id
+    , _id: randomNum
+    })
     this.setState({text: '', create: false})
   }
 
@@ -84,6 +93,11 @@ export class List extends Component {
   saveListTitle(){
     const { dispatch } = this.props
     dispatch(ListActions.updateList(this.state.title, this.props.list._id))
+    // TODO list
+    socket.emit('UPDATE_LIST', {
+      title: this.state.title
+    , _id: this.props.list._id
+    })
     this.setState({title: '', edit: false})
   }
 

@@ -13,6 +13,9 @@ import * as CardActions from '../actions/CardActions'
 import cardTarget from '../dnd/cardTarget'
 import cardSource from '../dnd/cardSource'
 
+// Sockets
+const socket = require('socket.io-client')('http://127.0.0.1:3100')
+
 /**
  * Card
  */
@@ -49,12 +52,23 @@ export class Card extends Component {
   saveCardText(){
     const { dispatch } = this.props
     dispatch(CardActions.updateCard(this.props.card._id, this.props.card.list, this.state.text))
+    // TODO test
+    socket.emit('UPDATE_CARD', {
+      _id: this.props.card._id
+    , list: this.props.card.list
+    , text: this.state.text
+    })
     this.setState({text: '', edit: false})
   }
 
   deleteCard(){
     const { dispatch } = this.props
     dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
+    // TODO test
+    socket.emit('DELETE_CARD', {
+      _id: this.props.card._id
+    , list: this.props.card.list
+    })
   }
 
   generateCardClass(){

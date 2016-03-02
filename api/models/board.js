@@ -10,7 +10,7 @@ module.exports = function (connection) {
   /**
    * Board Schema
    */
-  var BoardSchema = new Schema(
+  const BoardSchema = new Schema(
     { title:
       { type: String
       }

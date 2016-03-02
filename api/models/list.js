@@ -10,7 +10,7 @@ module.exports = function (connection) {
   /**
    * List Schema
    */
-  var ListSchema = new Schema(
+  const ListSchema = new Schema(
     { title:
       { type: String
       }

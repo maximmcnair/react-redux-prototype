@@ -44,3 +44,41 @@ superagent
     //   cb(null, res.body.results)
     // }
   })
+
+
+
+const socket = require('socket.io-client')('http://127.0.0.1:3100')
+
+socket.on('msg', function(data){
+  console.log(data.message + ' joined')
+})
+
+const randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
+console.log('i am ' + randomNum)
+socket.emit('msg', {
+  message: randomNum
+})
+
+import * as ListActions from './actions/ListActions'
+
+socket.on('NEW_LIST',function(data){
+  store.dispatch(ListActions.newList(data.title, data._id))
+})
+socket.on('UPDATE_LIST',function(data){
+  store.dispatch(ListActions.updateList(data.title, data._id))
+})
+
+
+import * as CardActions from './actions/CardActions'
+socket.on('NEW_CARD',function(data){
+  store.dispatch(CardActions.newCard(data.text, data.list, data._id))
+})
+socket.on('UPDATE_CARD',function(data){
+  store.dispatch(CardActions.updateCard(data._id, data.list, data.text))
+})
+socket.on('MOVE_CARD',function(data){
+  store.dispatch(CardActions.moveCard(data.original, data.target))
+})
+socket.on('DELETE_CARD',function(data){
+  store.dispatch(CardActions.deleteCard(data._id, data.list))
+})

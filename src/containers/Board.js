@@ -11,6 +11,9 @@ import List from '../components/List'
 import * as CardActions from '../actions/CardActions'
 import * as ListActions from '../actions/ListActions'
 
+// Sockets
+const socket = require('socket.io-client')('http://127.0.0.1:3100')
+
 /**
  * Board Component
  */
@@ -43,6 +46,11 @@ export class Board extends React.Component {
     const { dispatch } = this.props
     let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
     dispatch(ListActions.newList(this.state.title, randomNum))
+    // TODO test
+    socket.emit('NEW_LIST', {
+      title: this.state.title
+    , _id: randomNum
+    })
     this.setState({title: '', create: false})
   }
 
@@ -56,6 +64,11 @@ export class Board extends React.Component {
   moveCard(dragItem, hoverItem){
     const { dispatch } = this.props
     dispatch(CardActions.moveCard(dragItem, hoverItem))
+    // TODO test
+    socket.emit('MOVE_CARD', {
+      original: dragItem
+    , target: hoverItem
+    })
   }
 
   updateWidth(listsLength){

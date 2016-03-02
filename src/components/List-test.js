@@ -6,13 +6,13 @@ import sd from 'skin-deep'
 import sinon from 'sinon'
 
 // Components
-import {List, select} from './List'
+import {List, __RewireAPI__ as BoardRewireAPI, select} from './List'
 
 /* eslint-disable babel/object-shorthand */
 // NOTE bable doesn't work in rewire
-// List.__Rewire__('Card', React.createClass({
+// BoardRewireAPI.__Rewire__('Card', React.createClass({
 //   render: function() { return <div>**test**</div>; }
-// }))
+// }) )
 /* eslint-enable babel/object-shorthand */
 
 const listFixture =
@@ -293,7 +293,24 @@ test('saveListTitle()', t => {
   t.equal(instance.state.edit, false, 'should set state.edit to false')
 
   t.end()
+})
 
+test('filterByTag()', t => {
+  const exampleCards =
+    [ { text: 'example copy #bugs'
+      }
+    , { text: '#design'
+      }
+    ]
+
+  // shallow render card
+  const tree = sd.shallowRender(<List list={listFixture} />)
+  const instance = tree.getMountedInstance()
+
+  t.equal(instance.filterByTag(exampleCards, 'all tags').length, 2, 'should return all cards')
+  t.equal(instance.filterByTag(exampleCards, '#bugs').length, 1, 'should filter out cards without correct tag')
+
+  t.end()
 })
 
 test('select()', t => {

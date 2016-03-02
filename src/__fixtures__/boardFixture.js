@@ -5,12 +5,12 @@ export default {
   [ { title: 'Backlog'
     , _id: '0'
     , cards:
-      [ { text: 'Design homepage'
+      [ { text: 'Design homepage #design'
         , _id: '0'
         , list: '0'
         , position: 0
         }
-      , { text: 'Design homepage'
+      , { text: 'Design projects page #design'
         , _id: '10'
         , list: '0'
         , position: 1

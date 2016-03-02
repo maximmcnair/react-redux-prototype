@@ -17,13 +17,18 @@ import * as ListActions from '../actions/ListActions'
 export class Board extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {create: false, title: ''}
+    this.state = {create: false, title: '', activeTag: 'all tags'}
 
     this.showNewList = this.showNewList.bind(this)
     this.onNewListChange = this.onNewListChange.bind(this)
     this.createNewList = this.createNewList.bind(this)
     this.newListKeydown = this.newListKeydown.bind(this)
     this.moveCard = this.moveCard.bind(this)
+    this.changeTag = this.changeTag.bind(this)
+
+    this.checkSizes = this.checkSizes.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.componentWillUnmount = this.componentWillUnmount.bind(this)
   }
 
   onNewListChange(e){
@@ -59,7 +64,29 @@ export class Board extends React.Component {
     return (listsLength + 1) * listWidth + paddingRight
   }
 
-  // TODO test
+  getTags(lists){
+    var hastagReg =/(\S*#\[[^\]]+\])|(\S*#\S+)/gi
+    var tags = []
+    lists.forEach(list => {
+      list.cards.forEach(card => {
+        let cardTags = card.text.match(hastagReg)
+        if(cardTags){
+          cardTags.forEach(tag => {
+            // Check tag isn't already in `tags`
+            if( tags.indexOf(tag) === -1 ){
+              tags.push(tag)
+            }
+          })
+        }
+      })
+    })
+    return tags
+  }
+
+  changeTag(tag){
+    this.setState({activeTag: tag})
+  }
+
   getMaxHeight(){
     var body = document.body
       , html = document.documentElement
@@ -72,14 +99,30 @@ export class Board extends React.Component {
     )
   }
 
+  checkSizes(){
+    this.setState({
+      height: this.getMaxHeight()
+    })
+  }
+
+  componentDidMount(){
+    this.checkSizes()
+    window.addEventListener('resize', this.checkSizes)
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('resize', this.checkSizes)
+  }
+
   render() {
     const { board } = this.props
 
-    let boardListScrollStyle = {width: this.updateWidth(board.lists.length) + 'px' }
-    let height = this.getMaxHeight()
+    let tags = this.getTags(board.lists)
+    tags.unshift('all tags')
 
-    var boardListWrapperStyle = {height: height - 100 + 'px', background: 'red'}
-      , boardListStyle = {height: height - 100 - (28 * 2) + 'px'}
+    let boardListScrollStyle = {width: this.updateWidth(board.lists.length) + 'px' }
+      , boardContentStyle = {height: this.state.height - 101 - 28 + 'px'}
+      , boardListStyle = {height: this.state.height - 180 + 'px'}
 
     return (
       <section className="board">
@@ -87,39 +130,55 @@ export class Board extends React.Component {
           <h2 className="board-header-title">{board.title}</h2>
           <h3 className="board-header-client">{board.client}</h3>
         </header>
-        <div className="board-lists" height={boardListWrapperStyle}>
-          <div className="board-lists-scroll" style={boardListScrollStyle}>
-            {board.lists.map((list, i) => {
+        <section className="board-content" style={boardContentStyle}>
+          <div className="board-tags">
+            {tags.map(tag => {
               return (
-                <List
-                  list={list}
-                  key={list._id}
-                  moveCard={this.moveCard}
-                  height={height - 100 - (28 * 2)}
-                />
+                <span
+                  onClick={() => {
+                    this.changeTag(tag)
+                  }}
+                  className={this.state.activeTag == tag ? 'tag tag-active' : 'tag'}
+                  key={tag}
+                >{tag}</span>
               )
             })}
-            <div className="list-new" style={boardListStyle}>
-              {this.state.create ? (
-                <header className="list-header">
-                  <textarea
-                    className="list-title-textarea"
-                    onKeyPress={this.newListKeydown}
-                    onChange={this.onNewListChange}
-                    value={this.state.title}
-                    placeholder="Add name"
-                    autoFocus={true}
+          </div>
+          <div className="board-lists">
+            <div className="board-lists-scroll" style={boardListScrollStyle}>
+              {board.lists.map((list, i) => {
+                return (
+                  <List
+                    list={list}
+                    key={list._id}
+                    activeTag={this.state.activeTag}
+                    moveCard={this.moveCard}
+                    height={this.state.height - 180}
                   />
-                  <a className="btn btn-sm list-header-save" onClick={this.createNewList}>Save</a>
-                </header>
-              ) : (
-                <div className="list-btn">
-                  <span className="btn btn-sm" onClick={this.showNewList}>Create list</span>
-                </div>
-              ) }
+                )
+              })}
+              <div className="list-new" style={boardListStyle}>
+                {this.state.create ? (
+                  <header className="list-header">
+                    <textarea
+                      className="list-title-textarea"
+                      onKeyPress={this.newListKeydown}
+                      onChange={this.onNewListChange}
+                      value={this.state.title}
+                      placeholder="Add name"
+                      autoFocus={true}
+                    />
+                    <a className="btn btn-sm list-header-save" onClick={this.createNewList}>Save</a>
+                  </header>
+                ) : (
+                  <div className="list-btn">
+                    <span className="btn btn-sm" onClick={this.showNewList}>Create list</span>
+                  </div>
+                ) }
+              </div>
             </div>
           </div>
-        </div>
+        </section>
       </section>
     )
   }

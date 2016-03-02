@@ -99,7 +99,7 @@ test('BoardReducer handing MOVE_CARD', t => {
   let cardInTargetList = targetList.cards.find(card => {
     return card._id === '0'
   })
-  t.equal(cardInTargetList.text, 'Design homepage', 'should remove card from original list')
+  t.equal(cardInTargetList.text, 'Design homepage #design', 'should remove card from original list')
 
   // Check card's list has been updated
   t.equal(cardInTargetList.list, '1', 'should have updated card\'s .list')

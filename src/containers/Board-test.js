@@ -20,8 +20,13 @@ import boardFixture from '../__fixtures__/boardFixture'
 
 // fake document's body and html for Board component
 global.document =
-  { body: {scrollHeight: 100, offsetHeight: 100}
-  , documentElement: {clientHeight: 100, scrollHeight: 100, offsetHeight: 100}
+  { body: {scrollHeight: 120, offsetHeight: 100}
+  , documentElement: {clientHeight: 140, scrollHeight: 100, offsetHeight: 100}
+  }
+// fake window
+global.window =
+  { addEventListener: () => {}
+  , removeEventListener: () => {}
   }
 
 /**
@@ -194,8 +199,109 @@ test('updateWidth()', t => {
   t.end()
 })
 
-// TODO
-test('getMaxHeight()')
+test('getTags()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+  t.looseEqual(instance.getTags(boardFixture.lists), ['#design', '#bugs'], 'should return aggregated tags')
+  t.end()
+})
+
+test('changeTag()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // check activeTag is set by default to `all tags`
+  t.equal(instance.state.activeTag, 'all tags', 'should be set to `all tags` by default')
+
+  // call .changeTag
+  instance.changeTag('#design')
+
+  t.equal(instance.state.activeTag, '#design', 'should set state.activeTag to #design')
+  t.end()
+})
+
+test('getMaxHeight()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  t.equal(instance.getMaxHeight(), 140, 'should returns document.clientHeight value (because it\s the highest)')
+  t.end()
+})
+
+test('checkSizes()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // stub `.getMaxHeight()`
+  var stubGetMaxHeight = sinon.stub(instance, 'getMaxHeight', function(){return 140})
+
+  // call `.checkSizes()`
+  instance.checkSizes()
+
+  t.equal(stubGetMaxHeight.callCount, 1, 'should call .getMaxHeight')
+  t.equal(instance.state.height, 140, 'should set state.height to what .getMaxHeight returns')
+
+  // restore .getMaxHeight
+  instance.getMaxHeight.restore()
+
+  t.end()
+})
+
+test('componentDidMount()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // stub `.checkSizes()`
+  var stubCheckSizes = sinon.stub(instance, 'checkSizes', function(){})
+
+  // stub `window.addEventListener()`
+  var stubAddEventListener = sinon.stub(window, 'addEventListener', function(){})
+
+  // call `.componentDidMount`
+  instance.componentDidMount()
+
+  t.equal(stubCheckSizes.callCount, 1, 'should call .checkSizes')
+
+  t.equal(stubAddEventListener.args[0][0], 'resize', 'should add an event listener on resize')
+  t.equal(stubAddEventListener.args[0][1], stubCheckSizes, 'should add an event listener on resize to call .checkSizes')
+
+  // restore .checkSizes
+  instance.checkSizes.restore()
+  // restore .addEventListener
+  window.addEventListener.restore()
+
+  t.end()
+})
+
+test('componentWillUnmount()', t => {
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // stub `.checkSizes()`
+  var stubCheckSizes = sinon.stub(instance, 'checkSizes', function(){})
+
+  // stub `window.removeEventListener()`
+  var stubRemoveEventListener = sinon.stub(window, 'removeEventListener', function(){})
+
+  // call `.componentWillUnmount`
+  instance.componentWillUnmount()
+
+  t.equal(stubRemoveEventListener.args[0][0], 'resize', 'should remove an event listener on resize')
+  t.equal(stubRemoveEventListener.args[0][1], stubCheckSizes, 'should remove .checkSizes from event listener')
+
+  // restore .checkSizes
+  instance.checkSizes.restore()
+  // restore .addEventListener
+  window.removeEventListener.restore()
+
+  t.end()
+})
 
 // Find list button
 // let listBtnInnerHtml = TestUtils.findRenderedDOMComponentWithClass(el, 'btn').innerHTML

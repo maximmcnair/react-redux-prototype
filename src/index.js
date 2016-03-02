@@ -11,7 +11,6 @@ import Board from './containers/Board'
 import DevTools from './containers/DevTools'
 
 // Fixtures
-// TODO remove this
 import boardFixture from './__fixtures__/boardFixture'
 
 // setup redux

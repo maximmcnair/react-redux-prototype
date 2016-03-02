@@ -22,8 +22,16 @@
   color: $color-subtitle;
   font-weight: 400;
 }
+.board-content{
+  // margin-top: 100px;
+  padding: 115px 0px 28px 0px;
+  display: block;
+}
 .board-lists{
-  padding: 28px;
-  margin-top: 100px;
+  padding: 0px 28px;
   overflow-x: scroll;
+}
+.board-tags{
+  padding: 0px 28px;
+  margin-bottom: 15px;
 }

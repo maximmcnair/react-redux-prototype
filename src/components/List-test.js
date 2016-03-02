@@ -295,10 +295,9 @@ test('saveListTitle()', t => {
   t.end()
 })
 
-// TODOs
 test('filterByTag()', t => {
   const exampleCards =
-    [ { text: 'exmample copy #bugs'
+    [ { text: 'example copy #bugs'
       }
     , { text: '#design'
       }
@@ -308,6 +307,7 @@ test('filterByTag()', t => {
   const tree = sd.shallowRender(<List list={listFixture} />)
   const instance = tree.getMountedInstance()
 
+  t.equal(instance.filterByTag(exampleCards, 'all tags').length, 2, 'should return all cards')
   t.equal(instance.filterByTag(exampleCards, '#bugs').length, 1, 'should filter out cards without correct tag')
 
   t.end()

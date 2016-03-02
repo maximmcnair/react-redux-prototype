@@ -17,7 +17,6 @@ import * as ListActions from '../actions/ListActions'
 export class Board extends React.Component {
   constructor(props) {
     super(props)
-    // TODO test state.activeTag
     this.state = {create: false, title: '', activeTag: 'all tags'}
 
     this.showNewList = this.showNewList.bind(this)
@@ -106,13 +105,11 @@ export class Board extends React.Component {
     })
   }
 
-  // TODO test
   componentDidMount(){
     this.checkSizes()
     window.addEventListener('resize', this.checkSizes)
   }
 
-  // TODO test
   componentWillUnmount(){
     window.removeEventListener('resize', this.checkSizes)
   }

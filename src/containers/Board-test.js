@@ -23,6 +23,11 @@ global.document =
   { body: {scrollHeight: 120, offsetHeight: 100}
   , documentElement: {clientHeight: 140, scrollHeight: 100, offsetHeight: 100}
   }
+// fake window
+global.window =
+  { addEventListener: () => {}
+  , removeEventListener: () => {}
+  }
 
 /**
  * Board container tests
@@ -207,6 +212,7 @@ test('changeTag()', t => {
   const tree = sd.shallowRender(<Board board={boardFixture} />)
   const instance = tree.getMountedInstance()
 
+  // check activeTag is set by default to `all tags`
   t.equal(instance.state.activeTag, 'all tags', 'should be set to `all tags` by default')
 
   // call .changeTag
@@ -245,17 +251,55 @@ test('checkSizes()', t => {
   t.end()
 })
 
-// TODO test
 test('componentDidMount()', t => {
-  'should call .checkSizes'
-  'should add an event listener on resize'
-  'should call .checkSizes on resize event'
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // stub `.checkSizes()`
+  var stubCheckSizes = sinon.stub(instance, 'checkSizes', function(){})
+
+  // stub `window.addEventListener()`
+  var stubAddEventListener = sinon.stub(window, 'addEventListener', function(){})
+
+  // call `.componentDidMount`
+  instance.componentDidMount()
+
+  t.equal(stubCheckSizes.callCount, 1, 'should call .checkSizes')
+
+  t.equal(stubAddEventListener.args[0][0], 'resize', 'should add an event listener on resize')
+  t.equal(stubAddEventListener.args[0][1], stubCheckSizes, 'should add an event listener on resize to call .checkSizes')
+
+  // restore .checkSizes
+  instance.checkSizes.restore()
+  // restore .addEventListener
+  window.addEventListener.restore()
+
   t.end()
 })
 
-// TODO test
 test('componentWillUnmount()', t => {
-  'should remove event listener on resize'
+  // shallow render a Board container for us to test
+  const tree = sd.shallowRender(<Board board={boardFixture} />)
+  const instance = tree.getMountedInstance()
+
+  // stub `.checkSizes()`
+  var stubCheckSizes = sinon.stub(instance, 'checkSizes', function(){})
+
+  // stub `window.removeEventListener()`
+  var stubRemoveEventListener = sinon.stub(window, 'removeEventListener', function(){})
+
+  // call `.componentWillUnmount`
+  instance.componentWillUnmount()
+
+  t.equal(stubRemoveEventListener.args[0][0], 'resize', 'should remove an event listener on resize')
+  t.equal(stubRemoveEventListener.args[0][1], stubCheckSizes, 'should remove .checkSizes from event listener')
+
+  // restore .checkSizes
+  instance.checkSizes.restore()
+  // restore .addEventListener
+  window.removeEventListener.restore()
+
   t.end()
 })
 

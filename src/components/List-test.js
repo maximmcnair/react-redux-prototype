@@ -6,13 +6,13 @@ import sd from 'skin-deep'
 import sinon from 'sinon'
 
 // Components
-import {List, select} from './List'
+import {List, __RewireAPI__ as BoardRewireAPI, select} from './List'
 
 /* eslint-disable babel/object-shorthand */
 // NOTE bable doesn't work in rewire
-// List.__Rewire__('Card', React.createClass({
+// BoardRewireAPI.__Rewire__('Card', React.createClass({
 //   render: function() { return <div>**test**</div>; }
-// }))
+// }) )
 /* eslint-enable babel/object-shorthand */
 
 const listFixture =
@@ -43,7 +43,6 @@ test('List component', (t) => {
   t.equal(tree.subTree('.list-title').text(), 'Backlog', 'should render list title')
 
   // Check it renders cards
-  // TODO this needs to be added in again, but Rewire breaks??
   // const amountOfTestStringsRendered = (tree.toString().match(/test/g) || []).length
   // t.equal(amountOfTestStringsRendered, 3, 'should render cards')
 

@@ -30,3 +30,17 @@ ReactDOM.render(
   </Provider>
 , document.getElementById('root'))
 // <DevTools />
+
+
+import superagent from 'superagent'
+
+superagent
+  .get('http://127.0.0.1:3100')
+  .end((err, res) => {
+    console.log(err, res)
+    // if(err){
+    //   cb(err)
+    // }else{
+    //   cb(null, res.body.results)
+    // }
+  })

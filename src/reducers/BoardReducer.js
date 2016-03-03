@@ -4,6 +4,7 @@ import Ramda from 'ramda'
 // Types
 import * as CardTypes from '../actions/CardTypes'
 import * as ListTypes from '../actions/ListTypes'
+import * as BoardTypes from '../actions/BoardTypes'
 
 /**
  * Board Reducer
@@ -13,6 +14,10 @@ const BoardReducer = (state = {}, action) => {
   var state = Ramda.clone(state)
 
   switch (action.type) {
+    case BoardTypes.RECIEVE_BOARD:
+      state = action.board
+      break
+
     case CardTypes.NEW_CARD:
       // console.log('NEW_CARD', action)
       // find list

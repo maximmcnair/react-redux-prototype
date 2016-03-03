@@ -6,6 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 
 // Components
 import List from '../components/List'
+import Loading from '../components/Loading'
 
 // Actions
 import * as CardActions from '../actions/CardActions'
@@ -20,7 +21,8 @@ const socket = require('socket.io-client')('http://127.0.0.1:3100')
 export class Board extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {create: false, title: '', activeTag: 'all tags'}
+    // TODO test loading
+    this.state = {create: false, title: '', activeTag: 'all tags', loading: true}
 
     this.showNewList = this.showNewList.bind(this)
     this.onNewListChange = this.onNewListChange.bind(this)
@@ -81,17 +83,19 @@ export class Board extends React.Component {
     var hastagReg =/(\S*#\[[^\]]+\])|(\S*#\S+)/gi
     var tags = []
     lists.forEach(list => {
-      list.cards.forEach(card => {
-        let cardTags = card.text.match(hastagReg)
-        if(cardTags){
-          cardTags.forEach(tag => {
-            // Check tag isn't already in `tags`
-            if( tags.indexOf(tag) === -1 ){
-              tags.push(tag)
-            }
-          })
-        }
-      })
+      if(list.cards){
+        list.cards.forEach(card => {
+          let cardTags = card.text.match(hastagReg)
+          if(cardTags){
+            cardTags.forEach(tag => {
+              // Check tag isn't already in `tags`
+              if( tags.indexOf(tag) === -1 ){
+                tags.push(tag)
+              }
+            })
+          }
+        })
+      }
     })
     return tags
   }

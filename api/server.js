@@ -26,15 +26,26 @@ connection.once('open', function connectionOpen() {
   /**
    * test socket events
    */
+  var ListModel = connection.model('List')
   io.on('connection', function(socket) {
 
-    socket.on('msg', function(data) {
-      console.log('recieve msg', data)
-      io.sockets.emit('msg', {
-        message: data.message
+    /**
+     * Initial state
+     */
+    ListModel
+      .find({})
+      .populate('cards')
+      .then(function(documents){
+        // console.log(documents)
+        io.to(socket.id).emit('RECIEVE_BOARD', {
+          title: 'Example project board'
+        , client: 'Client name'
+        , lists: documents
+        })
+      }, function(err){
+        // console.error(err)
+        // res.sendStatus(404)
       })
-    })
-
 
     socket.on('NEW_LIST', function(data) {
       console.log('recieve NEW_LIST', data)

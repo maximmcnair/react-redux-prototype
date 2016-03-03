@@ -17,6 +17,10 @@ module.exports = function (connection) {
     , position:
       { type: Number
       }
+    , list:
+      { type: Schema.Types.ObjectId
+      , ref: 'List'
+      }
     }
   )
 

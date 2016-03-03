@@ -11,12 +11,12 @@ import Board from './containers/Board'
 import DevTools from './containers/DevTools'
 
 // Fixtures
-import boardFixture from './__fixtures__/boardFixture'
+// import boardFixture from './__fixtures__/boardFixture'
 
 // setup redux
 import configureStore from './store/configureStore'
 const store = configureStore({
-  board: boardFixture
+  board: {title: 'Example project board', client: 'Client name', lists: []}
 })
 
 /**
@@ -32,32 +32,35 @@ ReactDOM.render(
 // <DevTools />
 
 
-import superagent from 'superagent'
-
-superagent
-  .get('http://127.0.0.1:3100')
-  .end((err, res) => {
-    console.log(err, res)
-    // if(err){
-    //   cb(err)
-    // }else{
-    //   cb(null, res.body.results)
-    // }
-  })
+// import superagent from 'superagent'
+//
+// superagent
+//   .get('http://127.0.0.1:3100')
+//   .end((err, res) => {
+//     console.log(err, res)
+//     // if(err){
+//     //   cb(err)
+//     // }else{
+//     //   cb(null, res.body.results)
+//     // }
+//   })
 
 
 
 const socket = require('socket.io-client')('http://127.0.0.1:3100')
 
-socket.on('msg', function(data){
-  console.log(data.message + ' joined')
+import * as BoardActions from './actions/BoardActions'
+
+socket.on('RECIEVE_BOARD', function(data){
+  console.log('RECIEVE_BOARD', data)
+  store.dispatch(BoardActions.newBoard(data))
 })
 
-const randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
-console.log('i am ' + randomNum)
-socket.emit('msg', {
-  message: randomNum
-})
+// const randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
+// console.log('i am ' + randomNum)
+// socket.emit('msg', {
+//   message: randomNum
+// })
 
 import * as ListActions from './actions/ListActions'
 
@@ -70,6 +73,7 @@ socket.on('UPDATE_LIST',function(data){
 
 
 import * as CardActions from './actions/CardActions'
+
 socket.on('NEW_CARD',function(data){
   store.dispatch(CardActions.newCard(data.text, data.list, data._id))
 })

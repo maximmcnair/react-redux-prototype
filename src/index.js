@@ -52,7 +52,6 @@ const socket = require('socket.io-client')('http://127.0.0.1:3100')
 import * as BoardActions from './actions/BoardActions'
 
 socket.on('RECIEVE_BOARD', function(data){
-  console.log('RECIEVE_BOARD', data)
   store.dispatch(BoardActions.newBoard(data))
 })
 
@@ -64,25 +63,26 @@ socket.on('RECIEVE_BOARD', function(data){
 
 import * as ListActions from './actions/ListActions'
 
-socket.on('NEW_LIST',function(data){
+socket.on('NEW_LIST', function(data){
   store.dispatch(ListActions.newList(data.title, data._id))
 })
-socket.on('UPDATE_LIST',function(data){
+socket.on('UPDATE_LIST', function(data){
   store.dispatch(ListActions.updateList(data.title, data._id))
 })
 
 
 import * as CardActions from './actions/CardActions'
 
-socket.on('NEW_CARD',function(data){
-  store.dispatch(CardActions.newCard(data.text, data.list, data._id))
+socket.on('NEW_CARD', function(data){
+  store.dispatch(CardActions.newCard(data.text, data.list, data._id, data.position))
 })
-socket.on('UPDATE_CARD',function(data){
+socket.on('UPDATE_CARD', function(data){
+  console.log('UPDATE_CARD', data)
   store.dispatch(CardActions.updateCard(data._id, data.list, data.text))
 })
-socket.on('MOVE_CARD',function(data){
+socket.on('MOVE_CARD', function(data){
   store.dispatch(CardActions.moveCard(data.original, data.target))
 })
-socket.on('DELETE_CARD',function(data){
+socket.on('DELETE_CARD', function(data){
   store.dispatch(CardActions.deleteCard(data._id, data.list))
 })

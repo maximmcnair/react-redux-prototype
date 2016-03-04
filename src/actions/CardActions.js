@@ -4,12 +4,13 @@ import * as CardTypes from './CardTypes'
 /**
  * Action creators
  */
-export function newCard(text, list, id){
+export function newCard(text, list, id, position){
   return {
     type: CardTypes.NEW_CARD
   , text
   , list
   , id
+  , position
   }
 }
 export function updateCard(id, list, text){

@@ -27,57 +27,79 @@ connection.once('open', function connectionOpen() {
    * test socket events
    */
   var ListModel = connection.model('List')
+  var CardModel = connection.model('Card')
+
+  var boardService =  require('./services/board-service')(connection)
+  var listService =  require('./services/list-service')(connection)
+  var cardService =  require('./services/card-service')(connection)
+
   io.on('connection', function(socket) {
 
     /**
-     * Initial state
+     * RECIEVE_BOARD - Initial state
      */
-    ListModel
-      .find({})
-      .populate('cards')
-      .then(function(documents){
-        // console.log(documents)
-        io.to(socket.id).emit('RECIEVE_BOARD', {
-          title: 'Example project board'
-        , client: 'Client name'
-        , lists: documents
-        })
-      }, function(err){
-        // console.error(err)
-        // res.sendStatus(404)
-      })
+    boardService.getOne('', function(error, document){
+      io.to(socket.id).emit('RECIEVE_BOARD', document)
+    })
 
+    /**
+     * NEW_LIST
+     */
     socket.on('NEW_LIST', function(data) {
       console.log('recieve NEW_LIST', data)
-      io.sockets.emit('NEW_LIST', {
-        title: data.title
-      , _id: data._id
-      })
-    })
-    socket.on('UPDATE_LIST', function(data) {
-      console.log('recieve UPDATE_LIST', data)
-      io.sockets.emit('UPDATE_LIST', {
-        title: data.title
-      , _id: data._id
+      listService.create(data, function(error, document){
+        io.sockets.emit('NEW_LIST', {
+          title: document.title
+        , _id: document._id
+        })
       })
     })
 
+    /**
+     * UPDATE_LIST
+     */
+    socket.on('UPDATE_LIST', function(data) {
+      console.log('recieve UPDATE_LIST', data)
+      listService.update(data, function(error, document){
+        io.sockets.emit('UPDATE_LIST', {
+          title: document.title
+        , _id: document._id
+        })
+      })
+    })
+
+    /**
+     * NEW_CARD
+     */
     socket.on('NEW_CARD', function(data) {
       console.log('recieve NEW_CARD', data)
-      io.sockets.emit('NEW_CARD', {
-        text: data.text
-      , list: data.list
-      , _id: data._id
+      cardService.create(data, function(error, document){
+        io.sockets.emit('NEW_CARD', {
+          text: document.text
+        , list: document.list
+        , _id: document._id
+        , position: document.position
+        })
       })
     })
+
+    /**
+     * UPDATE_CARD
+     */
     socket.on('UPDATE_CARD', function(data) {
       console.log('recieve UPDATE_CARD', data)
-      io.sockets.emit('UPDATE_CARD', {
-        _id: data._id
-      , list: data.list
-      , text: data.text
+      cardService.update(data, function(error, document){
+        io.sockets.emit('UPDATE_CARD', {
+          _id: document._id
+        , list: document.list
+        , text: document.text
+        })
       })
     })
+
+    /**
+     * MOVE_CARD
+     */
     socket.on('MOVE_CARD', function(data) {
       console.log('recieve MOVE_CARD', data)
       io.sockets.emit('MOVE_CARD', {
@@ -85,16 +107,20 @@ connection.once('open', function connectionOpen() {
       , target: data.target
       })
     })
+
+    /**
+     * DELETE_CARD
+     */
     socket.on('DELETE_CARD', function(data) {
-      console.log('recieve DELETE_CARD', data)
-      io.sockets.emit('DELETE_CARD', {
-        id: data.id
-      , list: data.list
+      cardService.delete(data, function(error, document){
+        io.sockets.emit('DELETE_CARD', {
+          _id: document._id
+        , list: document.list
+        })
       })
     })
+
   })
-
-
 
 
   app

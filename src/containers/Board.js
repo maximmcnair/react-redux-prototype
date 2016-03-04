@@ -45,13 +45,13 @@ export class Board extends React.Component {
   }
 
   createNewList(){
-    const { dispatch } = this.props
-    let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
-    dispatch(ListActions.newList(this.state.title, randomNum))
+    // const { dispatch } = this.props
+    // let randomNum = Math.floor(Math.random() * (10000000 - 0 + 1)) + 0
+    // dispatch(ListActions.newList(this.state.title, randomNum))
     // TODO test
     socket.emit('NEW_LIST', {
       title: this.state.title
-    , _id: randomNum
+    // , _id: randomNum
     })
     this.setState({title: '', create: false})
   }

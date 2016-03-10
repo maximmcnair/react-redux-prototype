@@ -11,14 +11,16 @@ module.exports = function (connection) {
       var newDocument = new CardModel({
         text: data.text
       , list: data.list
-      , position: listDocument.cards.length
       })
       newDocument.save(function(error, document) {
         if (error) {
           console.log('Error creating new card document', error)
         } else {
           // Add to list
-          listDocument.cards.push(document._id)
+          listDocument.cards.push({
+            position: listDocument.cards.length
+          , card: document._id
+          })
           listDocument.save(function(error, updatedList) {
             if (error) {
               console.log('Error adding card to list', error)
@@ -70,6 +72,13 @@ module.exports = function (connection) {
         }
       })
     })
+  }
+
+  /**
+   * Move card
+   */
+  service.move = function(data, callback){
+
   }
 
   return service

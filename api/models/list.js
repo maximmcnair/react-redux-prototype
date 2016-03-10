@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
+  , deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 module.exports = function (connection) {
   console.log('Setting up list model')
@@ -16,8 +17,13 @@ module.exports = function (connection) {
       }
     , cards:
       { type:
-        [ { type: Schema.Types.ObjectId
-          , ref: 'Card'
+        [ { position:
+            { type: Number
+            }
+          , card:
+            { type: Schema.Types.ObjectId
+            , ref: 'Card'
+            }
           }
         ]
       , default: []
@@ -25,5 +31,6 @@ module.exports = function (connection) {
     }
   )
 
+  ListSchema.plugin(deepPopulate, {})
   connection.model('List', ListSchema)
 }

@@ -85,7 +85,7 @@ export class Board extends React.Component {
     lists.forEach(list => {
       if(list.cards){
         list.cards.forEach(card => {
-          let cardTags = card.text.match(hastagReg)
+          let cardTags = card.card.text.match(hastagReg)
           if(cardTags){
             cardTags.forEach(tag => {
               // Check tag isn't already in `tags`

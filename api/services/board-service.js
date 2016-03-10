@@ -9,7 +9,8 @@ module.exports = function (connection) {
     // NOTE this would actually query the board collection
     ListModel
       .find({})
-      .populate('cards')
+      // .populate('cards')
+      .deepPopulate('cards.card')
       .then(function(documents){
         callback(false, {
           title: 'Example project board'

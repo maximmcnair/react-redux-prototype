@@ -14,9 +14,9 @@ module.exports = function (connection) {
     { text:
       { type: String
       }
-    , position:
-      { type: Number
-      }
+    // , position:
+    //   { type: Number
+    //   }
     , list:
       { type: Schema.Types.ObjectId
       , ref: 'List'

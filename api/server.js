@@ -113,10 +113,10 @@ connection.once('open', function connectionOpen() {
      */
     socket.on('DELETE_CARD', function(data) {
       console.log('recieve DELETE_CARD', data)
-      cardService.delete(data, function(error, document){
+      cardService.delete(data._id, data.list, function(error, cardId, listId){
         io.sockets.emit('DELETE_CARD', {
-          _id: document._id
-        , list: document.list
+          _id: cardId
+        , list: listId
         })
       })
     })

@@ -60,16 +60,38 @@ module.exports = function (connection) {
   /**
    * Delete
    */
-  service.delete = function(data, callback){
-    CardModel.findById(data._id, function (error, document) {
-      // Remove document
-      document.remove(function(err){
-        if(err){
-          console.error(err)
-        }else{
-          console.log('recieve DELETE_CARD', data)
-          callback(false, data)
-        }
+  service.delete = function(cardId, listId, callback){
+    ListModel.findById(listId, function (error, listDocument) {
+      // console.log('list', listDocument)
+      CardModel.findById(cardId, function (error, document) {
+        // console.log('card', document)
+        // Remove document
+        document.remove(function(err){
+          if(err){
+            console.error(err)
+          }else{
+
+            // remove card reference from list
+            var cardIndex
+            listDocument.cards.forEach((card, i) => {
+              if(card._id === cardId){
+                cardIndex = i
+              }
+            })
+            // remove card from list
+            listDocument.cards.splice(cardIndex, 1)
+
+            // TODO update positions of cards
+            listDocument.save(function(err){
+              if(err){
+                console.error(err)
+              }else{
+                console.log(cardId, listId)
+                callback(false, cardId, listId)
+              }
+            })
+          }
+        })
       })
     })
   }

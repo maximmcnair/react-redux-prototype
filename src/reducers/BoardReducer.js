@@ -101,14 +101,15 @@ const BoardReducer = (state = {}, action) => {
       break
 
     case CardTypes.DELETE_CARD:
-      // console.log(CardTypes.DELETE_CARD)
+      console.log(CardTypes.DELETE_CARD, action)
       // find list
       let list4 = state.lists.find((list) => {
+        console.log(list._id, action.list)
         return list._id === action.list
       })
       let cardIndex
       list4.cards.forEach((card, i) => {
-        if(card._id === action.id){
+        if(card.data._id === action.id){
           cardIndex = i
         }
       })

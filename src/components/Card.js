@@ -51,7 +51,7 @@ export class Card extends Component {
 
   saveCardText(){
     const { dispatch } = this.props
-    dispatch(CardActions.updateCard(this.props.card.data._id, this.props.card.data.list, this.state.text))
+    // dispatch(CardActions.updateCard(this.props.card.data._id, this.props.card.data.list, this.state.text))
     // TODO test
     socket.emit('UPDATE_CARD', {
       _id: this.props.card.data._id
@@ -63,7 +63,7 @@ export class Card extends Component {
 
   deleteCard(){
     const { dispatch } = this.props
-    dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
+    // dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
     // TODO test
     socket.emit('DELETE_CARD', {
       _id: this.props.card.data._id

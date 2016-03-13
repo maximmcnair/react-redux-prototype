@@ -19,13 +19,20 @@ const BoardReducer = (state = {}, action) => {
       break
 
     case CardTypes.NEW_CARD:
-      // console.log('NEW_CARD', action)
+      console.log('NEW_CARD', action)
       // find list
       let list1 = state.lists.find((list) => {
         return list._id === action.list
       })
       // push new card
-      list1.cards.push({text: action.text, list: action.list, _id: action.id, position: action.position})
+      list1.cards.push({
+        position: action.position
+      , data:
+        { text: action.text
+        , list: action.list
+        , _id: action.id
+        }
+      })
       break
 
     case CardTypes.UPDATE_CARD:
@@ -35,9 +42,9 @@ const BoardReducer = (state = {}, action) => {
         return list._id === action.list
       })
       let card2 = list2.cards.find(card => {
-        return card._id === action.id
+        return card.data._id === action.id
       })
-      card2.text = action.text
+      card2.data.text = action.text
       break
 
     case CardTypes.MOVE_CARD:

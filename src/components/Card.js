@@ -35,7 +35,7 @@ export class Card extends Component {
    * Edit text
    */
   showEditableText(){
-    this.setState({edit: true, text: this.props.card.text})
+    this.setState({edit: true, text: this.props.card.data.text})
   }
 
   cardTextKeydown(event){

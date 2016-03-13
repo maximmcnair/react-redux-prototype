@@ -51,11 +51,11 @@ export class Card extends Component {
 
   saveCardText(){
     const { dispatch } = this.props
-    dispatch(CardActions.updateCard(this.props.card._id, this.props.card.list, this.state.text))
+    dispatch(CardActions.updateCard(this.props.card.data._id, this.props.card.data.list, this.state.text))
     // TODO test
     socket.emit('UPDATE_CARD', {
-      _id: this.props.card._id
-    , list: this.props.card.list
+      _id: this.props.card.data._id
+    , list: this.props.card.data.list
     , text: this.state.text
     })
     this.setState({text: '', edit: false})
@@ -66,8 +66,8 @@ export class Card extends Component {
     dispatch(CardActions.deleteCard(this.props.card._id, this.props.card.list))
     // TODO test
     socket.emit('DELETE_CARD', {
-      _id: this.props.card._id
-    , list: this.props.card.list
+      _id: this.props.card.data._id
+    , list: this.props.card.data.list
     })
   }
 
@@ -111,7 +111,7 @@ export class Card extends Component {
             <i className="fa fa-trash card-delete" onClick={this.deleteCard}></i>
           </div>
         ):(
-          <span className="card-text" onDoubleClick={this.showEditableText}>{this.props.card.text}</span>
+          <span className="card-text" onDoubleClick={this.showEditableText}>{this.props.card.data.text}</span>
         )}
       </div>
     ))

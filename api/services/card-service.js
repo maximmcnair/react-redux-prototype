@@ -19,7 +19,7 @@ module.exports = function (connection) {
           // Add to list
           listDocument.cards.push({
             position: listDocument.cards.length
-          , card: document._id
+          , data: document._id
           })
           listDocument.save(function(error, updatedList) {
             if (error) {

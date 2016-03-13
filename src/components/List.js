@@ -123,10 +123,10 @@ export class List extends Component {
     const cardNodes = cards.map(function(card, i){
       return (
         <Card
-          card={card.card}
-          key={card.card._id}
+          card={card}
+          key={card.data._id}
           index={i}
-          id={card.card._id}
+          id={card.data._id}
           moveCard={this.props.moveCard}
         />
       )

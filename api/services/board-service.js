@@ -10,7 +10,7 @@ module.exports = function (connection) {
     ListModel
       .find({})
       // .populate('cards')
-      .deepPopulate('cards.card')
+      .deepPopulate('cards.data')
       .then(function(documents){
         callback(false, {
           title: 'Example project board'

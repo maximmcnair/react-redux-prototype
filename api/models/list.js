@@ -20,7 +20,7 @@ module.exports = function (connection) {
         [ { position:
             { type: Number
             }
-          , card:
+          , data:
             { type: Schema.Types.ObjectId
             , ref: 'Card'
             }

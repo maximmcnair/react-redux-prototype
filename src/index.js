@@ -11,7 +11,7 @@ import Board from './containers/Board'
 import DevTools from './containers/DevTools'
 
 // Fixtures
-// import boardFixture from './__fixtures__/boardFixture'
+import boardFixture from './__fixtures__/boardFixture'
 
 // setup redux
 import configureStore from './store/configureStore'
@@ -52,6 +52,7 @@ const socket = require('socket.io-client')('http://127.0.0.1:3100')
 import * as BoardActions from './actions/BoardActions'
 
 socket.on('RECIEVE_BOARD', function(data){
+  console.log(data)
   store.dispatch(BoardActions.newBoard(data))
 })
 
@@ -71,18 +72,18 @@ socket.on('UPDATE_LIST', function(data){
 })
 
 
-import * as CardActions from './actions/CardActions'
-
-socket.on('NEW_CARD', function(data){
-  store.dispatch(CardActions.newCard(data.text, data.list, data._id, data.position))
-})
-socket.on('UPDATE_CARD', function(data){
-  console.log('UPDATE_CARD', data)
-  store.dispatch(CardActions.updateCard(data._id, data.list, data.text))
-})
-socket.on('MOVE_CARD', function(data){
-  store.dispatch(CardActions.moveCard(data.original, data.target))
-})
-socket.on('DELETE_CARD', function(data){
-  store.dispatch(CardActions.deleteCard(data._id, data.list))
-})
+// import * as CardActions from './actions/CardActions'
+//
+// socket.on('NEW_CARD', function(data){
+//   store.dispatch(CardActions.newCard(data.text, data.list, data._id, data.position))
+// })
+// socket.on('UPDATE_CARD', function(data){
+//   console.log('UPDATE_CARD', data)
+//   store.dispatch(CardActions.updateCard(data._id, data.list, data.text))
+// })
+// socket.on('MOVE_CARD', function(data){
+//   store.dispatch(CardActions.moveCard(data.original, data.target))
+// })
+// socket.on('DELETE_CARD', function(data){
+//   store.dispatch(CardActions.deleteCard(data._id, data.list))
+// })

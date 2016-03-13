@@ -112,6 +112,7 @@ connection.once('open', function connectionOpen() {
      * DELETE_CARD
      */
     socket.on('DELETE_CARD', function(data) {
+      console.log('recieve DELETE_CARD', data)
       cardService.delete(data, function(error, document){
         io.sockets.emit('DELETE_CARD', {
           _id: document._id

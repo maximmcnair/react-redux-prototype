@@ -82,21 +82,21 @@ export class Board extends React.Component {
   getTags(lists){
     var hastagReg =/(\S*#\[[^\]]+\])|(\S*#\S+)/gi
     var tags = []
-    lists.forEach(list => {
-      if(list.cards){
-        list.cards.forEach(card => {
-          let cardTags = card.card.text.match(hastagReg)
-          if(cardTags){
-            cardTags.forEach(tag => {
-              // Check tag isn't already in `tags`
-              if( tags.indexOf(tag) === -1 ){
-                tags.push(tag)
-              }
-            })
-          }
-        })
-      }
-    })
+    // lists.forEach(list => {
+    //   if(list.cards){
+    //     list.cards.forEach(card => {
+    //       let cardTags = card.data.text.match(hastagReg)
+    //       if(cardTags){
+    //         cardTags.forEach(tag => {
+    //           // Check tag isn't already in `tags`
+    //           if( tags.indexOf(tag) === -1 ){
+    //             tags.push(tag)
+    //           }
+    //         })
+    //       }
+    //     })
+    //   }
+    // })
     return tags
   }
 

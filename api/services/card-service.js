@@ -73,8 +73,10 @@ module.exports = function (connection) {
 
             // remove card reference from list
             var cardIndex
+            var cardPosition
             listDocument.cards.forEach((card, i) => {
-              if(card._id === cardId){
+              if(card.data == cardId){
+                cardPosition = card.position
                 cardIndex = i
               }
             })
@@ -82,6 +84,18 @@ module.exports = function (connection) {
             listDocument.cards.splice(cardIndex, 1)
 
             // TODO update positions of cards
+            // find all card models to update
+            // console.log('cardPosition', cardPosition)
+            var cardsToUpdate = listDocument.cards.filter((card) => {
+                return card.position > cardPosition
+            })
+            // console.log('cardsToUpdate', cardsToUpdate)
+            // update original list positions
+            cardsToUpdate.forEach((card) => {
+              card.position = card.position - 1
+            })
+
+            // save list updates
             listDocument.save(function(err){
               if(err){
                 console.error(err)

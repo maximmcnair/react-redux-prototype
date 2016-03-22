@@ -102,9 +102,11 @@ connection.once('open', function connectionOpen() {
      */
     socket.on('MOVE_CARD', function(data) {
       console.log('recieve MOVE_CARD', data)
-      io.sockets.emit('MOVE_CARD', {
-        original: data.original
-      , target: data.target
+      cardService.move(data.original, data.target, function(error, cardId, listId){
+        io.sockets.emit('MOVE_CARD', {
+          original: data.original
+        , target: data.target
+        })
       })
     })
 

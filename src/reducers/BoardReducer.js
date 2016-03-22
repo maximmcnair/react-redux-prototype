@@ -53,11 +53,12 @@ const BoardReducer = (state = {}, action) => {
       let originalList = state.lists.find((list) => {
         return list._id === action.originalList
       })
+
       // get card details
       let selectedCard
       let selectedCardIndex
       originalList.cards.forEach((card, i) => {
-        if(card._id === action.originalId){
+        if(card.data._id === action.originalId){
           selectedCard = card
           selectedCardIndex = i
         }
@@ -80,13 +81,13 @@ const BoardReducer = (state = {}, action) => {
       })
 
       // update selectedCard's list id
-      selectedCard.list = targetList._id
+      selectedCard.data.list = targetList._id
       // update selectedCard's position
       selectedCard.position = action.targetPosition
 
       // find all card models to update
       let targetListCardModels = targetList.cards.filter((card) => {
-          return card.position >= action.targetPosition
+        return card.position >= action.targetPosition
       })
       // update target list positions
       targetListCardModels.forEach((card) => {

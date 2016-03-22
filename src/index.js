@@ -82,9 +82,10 @@ socket.on('UPDATE_CARD', function(data){
   console.log('UPDATE_CARD', data)
   store.dispatch(CardActions.updateCard(data._id, data.list, data.text))
 })
-// socket.on('MOVE_CARD', function(data){
-//   store.dispatch(CardActions.moveCard(data.original, data.target))
-// })
+socket.on('MOVE_CARD', function(data){
+  console.log('MOVE_CARD', data)
+  store.dispatch(CardActions.moveCard(data.original, data.target))
+})
 socket.on('DELETE_CARD', function(data){
   console.log('DELETE_CARD', data)
   store.dispatch(CardActions.deleteCard(data._id, data.list))

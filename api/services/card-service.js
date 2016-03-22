@@ -1,3 +1,7 @@
+var async = require('async')
+
+require('array.prototype.find')
+
 module.exports = function (connection) {
   var service = {}
     , ListModel = connection.model('List')
@@ -70,7 +74,6 @@ module.exports = function (connection) {
           if(err){
             console.error(err)
           }else{
-
             // remove card reference from list
             var cardIndex
             var cardPosition
@@ -83,13 +86,11 @@ module.exports = function (connection) {
             // remove card from list
             listDocument.cards.splice(cardIndex, 1)
 
-            // TODO update positions of cards
+            // update positions of cards
             // find all card models to update
-            // console.log('cardPosition', cardPosition)
             var cardsToUpdate = listDocument.cards.filter((card) => {
                 return card.position > cardPosition
             })
-            // console.log('cardsToUpdate', cardsToUpdate)
             // update original list positions
             cardsToUpdate.forEach((card) => {
               card.position = card.position - 1
@@ -113,8 +114,111 @@ module.exports = function (connection) {
   /**
    * Move card
    */
-  service.move = function(data, callback){
+  service.move = function(original, target, callback){
+    // console.log(
+    //   original._id
+    // , original.list
+    // , original.position
+    // , target.data.list
+    // , target.position
+    // )
+    // TODO this ^^ needs to be consolidated on the FE
+    // (e.g. pass each value indivially into MOVE_CARD action)
 
+    // NOTE if card is being moved in the same list we shouldn't query twice
+
+    // TODO due to multiple db calls, we need to catch errors and revert state
+
+    async.waterfall([
+      function(asyncCallback) {
+        // find OG list
+        ListModel.findById(original.list, function (error, originalList) {
+          if(error) return console.error('find original list ERROR', error)
+          // get original card
+          var originalCard
+            , originalCardIndex
+
+          originalList.cards.forEach((item, index) => {
+            if(item.data == original._id){
+              originalCard = item
+              originalCardIndex = index
+            }
+          })
+          // remove from original list
+          originalList.cards.splice(originalCardIndex, 1)
+
+          // update OG list positions
+          // find all card models to update
+          var originalListCardModels = originalList.cards.filter((card) => {
+            return card.position >= original.position
+          })
+          // update original list positions
+          originalListCardModels.forEach((card) => {
+            card.position = card.position - 1
+          })
+
+          // save it
+          originalList.save(function(err, document){
+            if(err){
+              console.error('save original list ERROR', err)
+            }else{
+              console.log('originalList saved', document)
+              asyncCallback(null)
+            }
+          })
+        })
+      },
+      function(asyncCallback) {
+        // find target list
+        ListModel.findById(target.data.list, function (error, targetList) {
+          if(error) return console.error('find target list ERROR', error)
+          // find all card models to update
+          var targetListCardModels = targetList.cards.filter((card) => {
+            return card.position >= target.position
+          })
+          // update target list positions
+          targetListCardModels.forEach((card) => {
+            card.position = card.position + 1
+          })
+
+          // add to target list
+          targetList.cards.push({data: original._id, position: target.position})
+
+          // save it
+          targetList.save(function(err, document){
+            if(err){
+              console.error('save target list ERROR', err)
+            }else{
+              console.log('targetList saved', document)
+              // asyncCallback(false, cardId, listId)
+              asyncCallback(null)
+            }
+          })
+        })
+      },
+      function(asyncCallback) {
+        // update card
+        console.log('CardModel.findById', original._id)
+        CardModel.findById(original._id, function(error, cardDocument){
+          if(error) return console.error('CardModel.findById ERROR', error)
+
+          cardDocument.list = target.data.list
+
+          // save it
+          cardDocument.save(function(err, document){
+            if(err){
+              console.error('save card ERROR', err)
+            }else{
+              console.log('cardDocument saved', document)
+              asyncCallback(null)
+            }
+          })
+        })
+      }
+    ], function (err, result) {
+      // result now equals 'done'
+      callback(false, original, target)
+    })
   }
 
   return service

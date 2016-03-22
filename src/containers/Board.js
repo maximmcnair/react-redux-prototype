@@ -65,7 +65,8 @@ export class Board extends React.Component {
 
   moveCard(dragItem, hoverItem){
     const { dispatch } = this.props
-    dispatch(CardActions.moveCard(dragItem, hoverItem))
+    console.log('moeCard', dragItem, hoverItem)
+    // dispatch(CardActions.moveCard(dragItem, hoverItem))
     // TODO test
     socket.emit('MOVE_CARD', {
       original: dragItem

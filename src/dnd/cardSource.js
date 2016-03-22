@@ -6,10 +6,10 @@ export default {
 
   beginDrag(props) {
     return {
-      _id: props.card._id
+      _id: props.card.data._id
     , position: props.card.position
     , index: props.index
-    , list: props.card.list
+    , list: props.card.data.list
     }
   }
 }

@@ -22,12 +22,13 @@ export function updateCard(id, list, text){
   }
 }
 export function moveCard(original, target){
+  console.log(original, target)
   return {
     type: CardTypes.MOVE_CARD
   , originalId: original._id
   , originalList: original.list
   , originalPosition: original.position
-  , targetList: target.list
+  , targetList: target.data.list
   , targetPosition: target.position
   }
 }

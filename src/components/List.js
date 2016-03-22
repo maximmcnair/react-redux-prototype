@@ -121,7 +121,6 @@ export class List extends Component {
     cards = this.sortByPosition(cards)
 
     const cardNodes = cards.map(function(card, i){
-      console.log(card)
       return (
         <Card
           card={card}

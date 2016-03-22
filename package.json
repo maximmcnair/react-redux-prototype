@@ -56,6 +56,7 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "dependencies": {
+    "array.prototype.find": "^2.0.0",
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
     "express": "^4.13.4",
